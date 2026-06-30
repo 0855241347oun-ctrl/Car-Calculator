@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Formula Calculator</title>
+    <!-- Use Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* Custom scrollbar for an elegant look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46; /* zinc-700 */
+            border-radius: 8px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; /* zinc-600 */
+        }
+        
+        /* Smooth transitions for all interactables */
+        input, button, select, textarea, .tab-content {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+
+<body class="bg-zinc-950 min-h-screen text-zinc-100 p-4 md:p-8 flex items-start justify-center font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+
+    <!-- MAIN CONTAINER -->
+    <main class="w-full max-w-6xl rounded-3xl p-6 md:p-8 bg-zinc-900 border border-zinc-800 shadow-2xl flex flex-col md:flex-row gap-8 items-start mt-4">
+
+        <!-- SIDEBAR -->
+        <aside class="w-full md:w-64 shrink-0 flex flex-col">
+
+            <header class="mb-8 md:text-left text-center">
+                <h1 class="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
+                    Calculator
+                </h1>
+                <p class="text-zinc-400 mt-2 text-sm font-medium">ศูนย์รวมสูตรคำนวณ</p>
+                <p class="text-zinc-500 text-xs mt-1">(เปิดดูพร้อมกันได้สูงสุด 2 สูตร)</p>
+            </header>
+
+            <nav id="tabs-nav" class="flex flex-col gap-2">
+                <button data-target="tab-3" class="menu-btn active text-left px-4 py-3 rounded-xl border-l-4 text-sm font-medium transition-colors border-indigo-500 bg-zinc-800 text-zinc-100 shadow-sm">
+                    1. เวลา → ชั่วโมง
+                </button>
+                <button data-target="tab-2" class="menu-btn text-left px-4 py-3 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors">
+                    2. บวกเวลา (ข้อความ)
+                </button>
+                <button data-target="tab-1" class="menu-btn text-left px-4 py-3 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors">
+                    3. หาส่วนต่างเวลา
+                </button>
+                <button data-target="tab-4" class="menu-btn text-left px-4 py-3 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors">
+                    4. คำนวณน้ำมัน
+                </button>
+            </nav>
+
+        </aside>
+
+        <!-- CONTENT AREA -->
+        <div id="tabs-content-container" class="flex-1 grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">
+
+            <!-- TAB 1: TIME DIFFERENCE CALCULATOR -->
+            <div id="tab-1" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
+                <section class="mb-6 space-y-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-zinc-100">เครื่องคำนวณหาส่วนต่างเวลา</h2>
+                        <button id="clear-tab1-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            ล้างข้อมูล
+                        </button>
+                    </div>
+                    <div id="time-entries" class="space-y-3 max-h-[300px] overflow-y-auto pr-2">
+                        <!-- Time Entry Row (Template) -->
+                        <div class="time-entry flex flex-col gap-2 bg-zinc-900 p-4 rounded-xl border border-zinc-800 relative hover:border-zinc-700">
+                            <div class="flex items-center gap-3">
+                                <div class="flex-1">
+                                    <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาเริ่มต้น</label>
+                                    <input type="text" inputmode="numeric" placeholder="00:00" class="start-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner" required>
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาสิ้นสุด</label>
+                                    <input type="text" inputmode="numeric" placeholder="00:00" class="end-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner" required>
+                                </div>
+                            </div>
+                            <div class="text-right text-sm text-indigo-400 font-semibold h-5 row-duration font-mono"></div>
+                        </div>
+                    </div>
+
+                    <!-- Add Button -->
+                    <button id="add-time-btn" class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /></svg>
+                        เพิ่มช่วงเวลา
+                    </button>
+
+                    <!-- Calculate Button -->
+                    <button id="calculate-btn" class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99]">
+                        คำนวณเวลาสุทธิ
+                    </button>
+                </section>
+
+                <section id="section-3-results" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 hidden opacity-0 transform translate-y-2">
+                    <h2 class="text-xs text-zinc-400 font-medium mb-4 text-center uppercase tracking-wider">ผลลัพธ์การคำนวณ</h2>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                            <p class="text-xs text-zinc-400 mb-1.5">เวลารวมทั้งหมด</p>
+                            <p id="result-hm" class="text-xl font-bold text-zinc-100">0 ชม. 0 นาที</p>
+                        </div>
+                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                            <p class="text-xs text-zinc-400 mb-1.5">คิดเป็นชั่วโมง (ทศนิยม)</p>
+                            <p id="result-decimal" class="text-xl font-bold text-indigo-400 font-mono">0.00</p>
+                        </div>
+                    </div>
+                    <div id="error-message" class="text-red-400 text-xs text-center mt-4 hidden">กรุณากรอกเวลาให้ครบถ้วนและถูกต้อง</div>
+                </section>
+            </div>
+
+            <!-- TAB 2: SUM TIME FROM TEXT -->
+            <div id="tab-2" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
+                <section class="mb-6 space-y-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-zinc-100">บวกเวลา (จากข้อความ)</h2>
+                        <button id="clear-tab2-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            ล้างข้อมูล
+                        </button>
+                    </div>
+                    <p class="text-sm text-zinc-400 mb-2 leading-relaxed">วางข้อความที่มีเวลาอยู่ข้างใน (เช่น เวลาเดินรถ06:36:2) ระบบจะดึงเฉพาะชั่วโมงและนาทีมาบวกกันโดยอัตโนมัติ</p>
+
+                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-800">
+                        <textarea id="raw-time-text" rows="5" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 placeholder-zinc-600 resize-none font-sans text-sm" placeholder="วางข้อความที่นี่..."></textarea>
+                    </div>
+
+                    <button id="calc-tab2-btn" class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99]">
+                        สกัดเวลาและคำนวณผลรวม
+                    </button>
+                </section>
+
+                <section id="tab2-results" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 hidden opacity-0 transform translate-y-2">
+                    <h2 class="text-xs text-zinc-400 font-medium mb-4 text-center uppercase tracking-wider">ผลลัพธ์การคำนวณ</h2>
+                    <div class="mb-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800">
+                        <span class="text-[11px] text-zinc-500 block mb-1.5 uppercase tracking-wider font-semibold">เวลาที่ตรวจพบ:</span>
+                        <div id="tab2-detected-times" class="font-mono text-zinc-300 text-sm leading-relaxed"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                            <p class="text-xs text-zinc-400 mb-1.5">เวลารวมทั้งหมด</p>
+                            <p id="tab2-result-hm" class="text-xl font-bold text-zinc-100">0 ชม. 0 นาที</p>
+                        </div>
+                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                            <p class="text-xs text-zinc-400 mb-1.5">คิดเป็นชั่วโมง (ทศนิยม)</p>
+                            <p id="tab2-result-decimal" class="text-xl font-bold text-indigo-400 font-mono">0.00</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- TAB 3: TIME TO DECIMAL HOURS -->
+            <div id="tab-3" class="tab-content block bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
+                <section class="space-y-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-zinc-100">เวลา &rarr; ชั่วโมงทศนิยม</h2>
+                        <button id="clear-tab3-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            ล้างข้อมูล
+                        </button>
+                    </div>
+                    <p class="text-sm text-zinc-400 leading-relaxed">ใส่เวลา (หรือวางจาก Excel หลายๆ บรรทัด) ระบบจะแปลงเป็นชั่วโมงทศนิยมให้อัตโนมัติ</p>
+
+                    <div id="tab3-entries" class="space-y-3 max-h-[350px] overflow-y-auto pr-2">
+                        <!-- Initial Row -->
+                        <div class="tab3-entry flex flex-col sm:flex-row gap-4 bg-zinc-900 p-4 rounded-xl border border-zinc-800 relative hover:border-zinc-700">
+                            <button type="button" class="tab3-remove-btn absolute top-3 right-3 text-zinc-500 hover:text-red-400 hidden bg-zinc-950 p-1 rounded-md">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
+                            </button>
+                            <div class="flex-1">
+                                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ช่วงเวลา</label>
+                                <input type="text" placeholder="15:10 หรือ 53 นาที" class="tab3-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                            </div>
+                            <div class="flex-none sm:w-28 flex flex-col justify-center items-end sm:items-center mt-2 sm:mt-0">
+                                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 sm:hidden font-semibold">ชั่วโมงทศนิยม</label>
+                                <span class="tab3-row-result text-2xl font-bold text-indigo-400 font-mono">0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="add-tab3-btn" class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /></svg>
+                        เพิ่มรายการ
+                    </button>
+
+                    <section id="tab3-export-section" class="bg-zinc-900 rounded-xl p-5 border border-zinc-800 mt-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="text-xs text-zinc-400 font-semibold uppercase tracking-wider">คัดลอกลง Excel</h2>
+                            <div class="flex items-center gap-2">
+                                <label class="text-[11px] text-zinc-500 uppercase font-semibold">รูปแบบ:</label>
+                                <select id="tab3-export-format" class="bg-zinc-950 border border-zinc-800 rounded-md px-2 py-1 text-zinc-300 text-xs focus:outline-none focus:border-indigo-500 cursor-pointer">
+                                    <option value="vertical">แนวตั้ง</option>
+                                    <option value="horizontal">แนวนอน</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="relative">
+                            <textarea id="tab3-export-text" rows="3" readonly class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-300 font-mono text-sm focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+                            <button id="tab3-copy-btn" class="absolute top-2 right-2 bg-zinc-800 hover:bg-zinc-700 p-2 rounded-md text-zinc-300 hover:text-white transition-colors active:scale-95" title="คัดลอก">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" /></svg>
+                            </button>
+                        </div>
+                    </section>
+                </section>
+            </div>
+
+            <!-- TAB 4: FUEL CALCULATOR -->
+            <div id="tab-4" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
+                <section class="space-y-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-zinc-100">คำนวณน้ำมันคงเหลือ</h2>
+                        <button id="clear-tab4-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            ล้างข้อมูล
+                        </button>
+                    </div>
+                    <p class="text-sm text-zinc-400 mb-4">ระบุอัตราการใช้ เพื่อคำนวณปริมาณน้ำมันคงเหลือ</p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">L/H (ลิตร/ชั่วโมง)</label>
+                            <input id="tab4-lph" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาทำงาน (ชั่วโมง)</label>
+                            <input id="tab4-hours" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">% น้ำมันเดิม</label>
+                            <input id="tab4-fuel-pct" type="number" inputmode="decimal" placeholder="0" step="0.1" min="0" max="100" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถัง (ลิตร)</label>
+                            <select id="tab4-tank" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans">
+                                <option value="240">240 L</option>
+                                <option value="340">340 L</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <section id="tab4-result" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 hidden opacity-0 transform translate-y-2">
+                        <div class="grid grid-cols-3 gap-4 text-center">
+                            <div class="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 hover:scale-[1.02]">
+                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ยอดลิตรที่ใช้</p>
+                                <p id="tab4-liters-used" class="text-xl font-bold text-zinc-100 font-mono">0.00</p>
+                                <p class="text-[10px] text-zinc-500 mt-1">ลิตร</p>
+                            </div>
+                            <div class="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 hover:scale-[1.02]">
+                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">% ที่ใช้ไป</p>
+                                <p id="tab4-pct-used" class="text-xl font-bold text-yellow-400 font-mono">0.00</p>
+                                <p class="text-[10px] text-zinc-500 mt-1">%</p>
+                            </div>
+                            <div class="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 hover:scale-[1.02]">
+                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">% ควรเหลือ</p>
+                                <p id="tab4-pct-remain" class="text-xl font-bold text-emerald-400 font-mono">0.00</p>
+                                <p class="text-[10px] text-zinc-500 mt-1">%</p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="js/main.js"></script>
+    <script src="js/tab1.js"></script>
+    <script src="js/tab2.js"></script>
+    <script src="js/tab3.js"></script>
+    <script src="js/tab4.js"></script>
+</body>
+
+</html>
