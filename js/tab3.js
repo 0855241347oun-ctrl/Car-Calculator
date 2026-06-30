@@ -9,18 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!entriesContainer) return;
 
     const createRowHTML = () => `
-        <div class="tab3-entry flex flex-col sm:flex-row gap-3 bg-white/5 p-4 rounded-xl border border-white/10 relative">
-            <button type="button" class="tab3-remove-btn absolute top-2 right-2 text-gray-500 hover:text-red-400">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+        <div class="tab3-entry flex flex-col sm:flex-row gap-4 bg-zinc-900 p-4 rounded-xl border border-zinc-800 relative hover:border-zinc-700">
+            <button type="button" class="tab3-remove-btn absolute top-3 right-3 text-zinc-500 hover:text-red-400 hidden bg-zinc-950 p-1 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
             </button>
             <div class="flex-1">
-                <label class="block text-xs text-gray-400 mb-1">ช่วงเวลา (HH:MM)</label>
-                <input type="text" inputmode="numeric" placeholder="15:10"
-                    class="tab3-time w-full bg-black/30 border border-white/10 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-blue-400 transition-colors">
+                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ช่วงเวลา</label>
+                <input type="text" placeholder="15:10 หรือ 53 นาที" class="tab3-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
             </div>
-            <div class="flex-none sm:w-24 flex flex-col justify-center items-end sm:items-center mt-2 sm:mt-0">
-                <label class="block text-xs text-gray-400 mb-1 sm:hidden">ชั่วโมงทศนิยม</label>
-                <span class="tab3-row-result text-lg font-bold text-emerald-400">0.00</span>
+            <div class="flex-none sm:w-28 flex flex-col justify-center items-end sm:items-center mt-2 sm:mt-0">
+                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 sm:hidden font-semibold">ชั่วโมงทศนิยม</label>
+                <span class="tab3-row-result text-2xl font-bold text-indigo-400 font-mono">0.00</span>
             </div>
         </div>
     `;
