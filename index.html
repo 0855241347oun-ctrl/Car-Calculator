@@ -108,7 +108,15 @@
                                     <input type="text" inputmode="numeric" placeholder="00:00" class="end-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner" required>
                                 </div>
                             </div>
-                            <div class="text-right text-sm text-indigo-400 font-semibold h-5 row-duration font-mono"></div>
+                            <div class="flex items-center justify-end gap-2">
+                                <span class="text-xl font-bold text-indigo-400 font-mono tabular-nums row-duration"></span>
+                                <div class="tab1-copy-wrapper hidden items-center gap-2 shrink-0">
+                                    <div class="w-px h-6 bg-zinc-800"></div>
+                                    <button type="button" class="tab1-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner relative" title="คัดลอกค่า">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

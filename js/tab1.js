@@ -45,6 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (durationEl) {
                 const rowDecimal = (diff / 60).toFixed(2);
                 durationEl.textContent = rowDecimal;
+                // show copy button when there's a value
+                const copyWrapper = entry.querySelector('.tab1-copy-wrapper');
+                if (copyWrapper) {
+                    copyWrapper.classList.remove('hidden');
+                    copyWrapper.classList.add('flex');
+                }
             }
         });
 
@@ -79,7 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <input type="text" inputmode="numeric" placeholder="00:00" class="end-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner" required>
             </div>
         </div>
-        <div class="text-right text-sm text-indigo-400 font-semibold h-5 row-duration font-mono"></div>
+        <div class="flex items-center justify-end gap-2">
+            <span class="text-xl font-bold text-indigo-400 font-mono tabular-nums row-duration"></span>
+            <div class="tab1-copy-wrapper hidden items-center gap-2 shrink-0">
+                <div class="w-px h-6 bg-zinc-800"></div>
+                <button type="button" class="tab1-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner relative" title="คัดลอกค่า">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                </button>
+            </div>
+        </div>
         <button type="button" class="remove-btn absolute -right-2 -top-2 bg-red-500 hover:bg-red-400 text-white rounded-full w-6 h-6 flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity">
             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
         </button>
@@ -166,6 +180,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ── Tooltip helper ────────────────────────────────────────────────────────
+    const showTooltip = (targetEl, msg) => {
+        const existing = targetEl.querySelector('.copy-tooltip');
+        if (existing) existing.remove();
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'copy-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 bg-emerald-600 text-white text-[10px] px-2 py-1 rounded shadow-lg font-sans font-medium whitespace-nowrap z-50 pointer-events-none opacity-0 translate-y-1 transition-all duration-200';
+        tooltip.textContent = msg;
+
+        targetEl.classList.add('relative');
+        targetEl.appendChild(tooltip);
+
+        requestAnimationFrame(() => {
+            tooltip.classList.remove('opacity-0', 'translate-y-1');
+            tooltip.classList.add('opacity-100', 'translate-y-0');
+        });
+
+        setTimeout(() => {
+            tooltip.classList.remove('opacity-100', 'translate-y-0');
+            tooltip.classList.add('opacity-0', 'translate-y-1');
+            setTimeout(() => tooltip.remove(), 200);
+        }, 1000);
+    };
+
+    // ── Row copy button handler ──────────────────────────────────────────────
+    timeEntriesContainer.addEventListener('click', (e) => {
+        const copyBtn = e.target.closest('.tab1-copy-row-btn');
+        if (!copyBtn) return;
+
+        const row = copyBtn.closest('.time-entry');
+        if (!row) return;
+
+        const durationEl = row.querySelector('.row-duration');
+        const val = durationEl ? durationEl.textContent.trim() : '';
+        if (!val) return;
+
+        navigator.clipboard.writeText(val).then(() => {
+            showTooltip(copyBtn, 'คัดลอกแล้ว!');
+        }).catch(err => {
+            console.error('Failed to copy:', err);
+        });
+    });
+
     // Clear Button Logic
     const clearBtn = document.getElementById('clear-tab1-btn');
     if (clearBtn) {
@@ -177,6 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     entry.querySelector('.end-time').value = '';
                     const durationEl = entry.querySelector('.row-duration');
                     if (durationEl) durationEl.textContent = '';
+                    // hide copy button
+                    const copyWrapper = entry.querySelector('.tab1-copy-wrapper');
+                    if (copyWrapper) {
+                        copyWrapper.classList.add('hidden');
+                        copyWrapper.classList.remove('flex');
+                    }
                 } else {
                     entry.remove();
                 }
