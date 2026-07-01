@@ -49,12 +49,19 @@ document.addEventListener('DOMContentLoaded', () => {
             </button>
             <input type="text" placeholder="15:10 หรือ 53 นาที"
                 class="tab3-time flex-1 min-w-0 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-zinc-100 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
-            <span class="tab3-row-result w-24 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
+            <span class="tab3-row-result w-20 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
             <!-- kml column (hidden in 1-col mode) -->
             <div class="tab3-kml-col ${is2col ? 'flex' : 'hidden'} items-center gap-2 shrink-0">
                 <div class="w-px h-6 bg-zinc-800"></div>
                 <input type="text" placeholder="กม./ล."
                     class="tab3-kml w-32 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-emerald-300 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors">
+            </div>
+            <!-- row copy button (always at the very end) -->
+            <div class="flex items-center gap-2 shrink-0">
+                <div class="w-px h-6 bg-zinc-800"></div>
+                <button type="button" class="tab3-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner" title="คัดลอกแถวนี้">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                </button>
             </div>
         </div>
     `;
@@ -123,6 +130,30 @@ document.addEventListener('DOMContentLoaded', () => {
         updateExport();
     };
 
+    // ── Tooltip notifier ──────────────────────────────────────────────────────
+    const showTooltip = (targetEl, msg) => {
+        const existing = targetEl.querySelector('.copy-tooltip');
+        if (existing) existing.remove();
+
+        const tooltip = document.createElement('div');
+        tooltip.className = 'copy-tooltip absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 bg-emerald-600 text-white text-[10px] px-2 py-1 rounded shadow-lg font-sans font-medium whitespace-nowrap z-50 pointer-events-none opacity-0 translate-y-1 transition-all duration-200';
+        tooltip.textContent = msg;
+
+        targetEl.classList.add('relative');
+        targetEl.appendChild(tooltip);
+
+        requestAnimationFrame(() => {
+            tooltip.classList.remove('opacity-0', 'translate-y-1');
+            tooltip.classList.add('opacity-100', 'translate-y-0');
+        });
+
+        setTimeout(() => {
+            tooltip.classList.remove('opacity-100', 'translate-y-0');
+            tooltip.classList.add('opacity-0', 'translate-y-1');
+            setTimeout(() => tooltip.remove(), 200);
+        }, 1000);
+    };
+
     // ── Export ────────────────────────────────────────────────────────────────
     const updateExport = () => {
         const format = exportFormatSelect.value;
@@ -165,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
         entriesContainer.scrollTop = entriesContainer.scrollHeight;
     });
 
-    // ── Remove row ────────────────────────────────────────────────────────────
+    // ── Remove row & Copy result ──────────────────────────────────────────────
     entriesContainer.addEventListener('click', (e) => {
         const removeBtn = e.target.closest('.tab3-remove-btn');
         if (removeBtn) {
@@ -174,6 +205,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 row.remove();
                 updateRemoveButtons();
                 updateExport();
+            }
+            return;
+        }
+
+        const copyRowBtn = e.target.closest('.tab3-copy-row-btn');
+        if (copyRowBtn) {
+            const row = copyRowBtn.closest('.tab3-entry');
+            if (row) {
+                const decimal = row.querySelector('.tab3-row-result').textContent.trim();
+                const kmlInput = row.querySelector('.tab3-kml');
+                const kml = kmlInput ? kmlInput.value.trim() : '';
+
+                const textToCopy = is2col ? `${decimal}\t${kml}` : decimal;
+
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    showTooltip(copyRowBtn, 'คัดลอกแล้ว!');
+                }).catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
             }
         }
     });
@@ -190,12 +240,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!pasteData) return;
 
         const lines = pasteData.split(/\r\n|\n|\r/).map(l => l.trimEnd()).filter(l => l.length > 0);
-        if (lines.length <= 1) return; // single line → let browser handle normally
+        if (lines.length === 0) return;
+
+        const hasTabs = lines.some(l => l.includes('\t'));
+        const isMultipleLines = lines.length > 1;
+
+        // If it's a simple single line without tab separators, let browser handle normal paste behavior
+        if (!isMultipleLines && !hasTabs) {
+            return;
+        }
 
         e.preventDefault();
-
-        // Detect 2-col paste (any line contains a tab)
-        const hasTabs = lines.some(l => l.includes('\t'));
 
         let rows = Array.from(document.querySelectorAll('.tab3-entry'));
         const currentRowIndex = rows.findIndex(row => row.contains(target));
@@ -211,31 +266,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const row = rows[targetIdx];
 
-            if (hasTabs) {
+            if (hasTabs || is2col) {
                 // Split on first tab only → timeStr | kmlStr
                 const tabIdx = line.indexOf('\t');
                 const timeStr = tabIdx >= 0 ? line.slice(0, tabIdx).trim() : line.trim();
                 const kmlStr  = tabIdx >= 0 ? line.slice(tabIdx + 1).trim() : '';
 
                 const timeInput = row.querySelector('.tab3-time');
-                timeInput.value = timeStr;
-                calculateRow(row);
-                formatTimeInput(timeInput);
+                if (timeInput) {
+                    timeInput.value = timeStr;
+                    calculateRow(row);
+                    formatTimeInput(timeInput);
+                }
 
                 const kmlInput = row.querySelector('.tab3-kml');
                 if (kmlInput) kmlInput.value = kmlStr;
 
                 // Auto-switch to 2-col mode if not already
-                if (!is2col && kmlStr !== '') {
+                if (!is2col && tabIdx >= 0 && kmlStr !== '') {
                     is2col = true;
                     applyMode();
                 }
             } else {
-                // Single-column: time only
+                // Multiple lines but no tabs
                 const timeInput = row.querySelector('.tab3-time');
-                timeInput.value = line.trim();
-                calculateRow(row);
-                formatTimeInput(timeInput);
+                if (timeInput) {
+                    timeInput.value = line.trim();
+                    calculateRow(row);
+                    formatTimeInput(timeInput);
+                }
             }
         });
 

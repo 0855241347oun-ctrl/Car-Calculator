@@ -208,8 +208,9 @@
                             <div id="tab3-col-headers" class="hidden flex items-center gap-3 px-2">
                                 <div class="w-8 shrink-0"></div>
                                 <div class="flex-1 text-[10px] uppercase tracking-widest font-bold text-zinc-500">⏱ เวลา</div>
-                                <div class="w-24 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-right">ชม.ทศนิยม</div>
+                                <div class="w-20 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-right">ชม.ทศนิยม</div>
                                 <div class="tab3-kml-hdr w-32 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 pl-3">⛽ กม./ลิตร</div>
+                                <div class="w-10 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-center">คัดลอก</div>
                             </div>
 
                             <div id="tab3-entries" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
@@ -219,11 +220,18 @@
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
                                     </button>
                                     <input type="text" placeholder="15:10 หรือ 53 นาที" class="tab3-time flex-1 min-w-0 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-zinc-100 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
-                                    <span class="tab3-row-result w-24 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
+                                    <span class="tab3-row-result w-20 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
                                     <!-- kml column (hidden in 1-col mode) -->
                                     <div class="tab3-kml-col hidden items-center gap-2 shrink-0">
                                         <div class="w-px h-6 bg-zinc-800"></div>
                                         <input type="text" placeholder="กม./ล." class="tab3-kml w-32 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-emerald-300 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors">
+                                    </div>
+                                    <!-- row copy button (always at the very end) -->
+                                    <div class="flex items-center gap-2 shrink-0">
+                                        <div class="w-px h-6 bg-zinc-800"></div>
+                                        <button type="button" class="tab3-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner" title="คัดลอกแถวนี้">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
