@@ -1,159 +1,171 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- TAB 3 (TIME TO DECIMAL HOURS) LOGIC ---
-    const entriesContainer = document.getElementById('tab3-entries');
-    const addBtn = document.getElementById('add-tab3-btn');
-    const exportFormatSelect = document.getElementById('tab3-export-format');
-    const exportTextarea = document.getElementById('tab3-export-text');
-    const copyBtn = document.getElementById('tab3-copy-btn');
+    const entriesContainer  = document.getElementById('tab3-entries');
+    const addBtn            = document.getElementById('add-tab3-btn');
+    const exportFormatSelect= document.getElementById('tab3-export-format');
+    const exportTextarea    = document.getElementById('tab3-export-text');
+    const copyBtn           = document.getElementById('tab3-copy-btn');
 
     if (!entriesContainer) return;
 
+    // ── Mode ──────────────────────────────────────────────────────────────────
+    const btn1col      = document.getElementById('tab3-mode-1col');
+    const btn2col      = document.getElementById('tab3-mode-2col');
+    const hint1col     = document.getElementById('tab3-hint-1col');
+    const hint2col     = document.getElementById('tab3-hint-2col');
+    const colHeaders   = document.getElementById('tab3-col-headers');
+    let   is2col       = false;
+
+    const applyMode = () => {
+        // toggle kml columns on all rows
+        document.querySelectorAll('.tab3-kml-col').forEach(el => {
+            if (is2col) el.classList.replace('hidden', 'flex');
+            else        el.classList.replace('flex',   'hidden');
+        });
+        // toggle headers & hints
+        colHeaders.classList.toggle('hidden', !is2col);
+        hint1col.classList.toggle('hidden',  is2col);
+        hint2col.classList.toggle('hidden',  !is2col);
+        // toggle button styles
+        btn1col.classList.toggle('bg-indigo-600', !is2col);
+        btn1col.classList.toggle('text-white',    !is2col);
+        btn1col.classList.toggle('shadow-sm',     !is2col);
+        btn1col.classList.toggle('text-zinc-400',  is2col);
+        btn2col.classList.toggle('bg-indigo-600',  is2col);
+        btn2col.classList.toggle('text-white',     is2col);
+        btn2col.classList.toggle('shadow-sm',      is2col);
+        btn2col.classList.toggle('text-zinc-400',  !is2col);
+        updateExport();
+    };
+
+    btn1col.addEventListener('click', () => { is2col = false; applyMode(); });
+    btn2col.addEventListener('click', () => { is2col = true;  applyMode(); });
+
+    // ── Row template ──────────────────────────────────────────────────────────
     const createRowHTML = () => `
-        <div class="tab3-entry flex flex-col sm:flex-row gap-4 bg-zinc-900 p-4 rounded-xl border border-zinc-800 relative hover:border-zinc-700">
-            <button type="button" class="tab3-remove-btn absolute top-3 right-3 text-zinc-500 hover:text-red-400 hidden bg-zinc-950 p-1 rounded-md">
+        <div class="tab3-entry flex items-center gap-3 bg-zinc-900 p-3.5 rounded-xl border border-zinc-800 relative hover:border-zinc-700 transition-all">
+            <button type="button" class="tab3-remove-btn w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-red-400 hidden shrink-0 rounded-lg hover:bg-zinc-800 transition-colors">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
             </button>
-            <div class="flex-1">
-                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ช่วงเวลา</label>
-                <input type="text" placeholder="15:10 หรือ 53 นาที" class="tab3-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
-            </div>
-            <div class="flex-none sm:w-28 flex flex-col justify-center items-end sm:items-center mt-2 sm:mt-0">
-                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 sm:hidden font-semibold">ชั่วโมงทศนิยม</label>
-                <span class="tab3-row-result text-2xl font-bold text-indigo-400 font-mono">0.00</span>
+            <input type="text" placeholder="15:10 หรือ 53 นาที"
+                class="tab3-time flex-1 min-w-0 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-zinc-100 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+            <span class="tab3-row-result w-24 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
+            <!-- kml column (hidden in 1-col mode) -->
+            <div class="tab3-kml-col ${is2col ? 'flex' : 'hidden'} items-center gap-2 shrink-0">
+                <div class="w-px h-6 bg-zinc-800"></div>
+                <input type="text" placeholder="กม./ล."
+                    class="tab3-kml w-32 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-emerald-300 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors">
             </div>
         </div>
     `;
 
+    // ── Time parsing ──────────────────────────────────────────────────────────
+    const parseTimeToMinutes = (val) => {
+        if (!val) return null;
+        val = val.trim();
+
+        // Thai format: "7 ชม. 58 นาที" / "7 ชั่วโมง 58 นาที" / "58 นาที"
+        if (val.includes('ชม') || val.includes('ชั่วโมง') || val.includes('นาที')) {
+            let h = 0, m = 0;
+            const hMatch = val.match(/(\d+)\s*(?:ชม|ชั่วโมง)/);
+            if (hMatch) h = parseInt(hMatch[1], 10);
+            const mMatch = val.match(/(\d+)\s*นาที/);
+            if (mMatch) m = parseInt(mMatch[1], 10);
+            return (h * 60) + m;
+        }
+
+        // HH:MM
+        if (val.includes(':')) {
+            const [h, m] = val.split(':').map(Number);
+            if (!isNaN(h) && !isNaN(m)) return (h * 60) + m;
+        }
+
+        // plain number
+        const clean = val.replace(/\D/g, '');
+        if (clean.length > 0) {
+            if (clean.length <= 2) return parseInt(clean, 10) * 60;
+            return (parseInt(clean.slice(0, -2), 10) * 60) + parseInt(clean.slice(-2), 10);
+        }
+        return null;
+    };
+
     const formatTimeInput = (input) => {
         const val = input.value.trim();
         if (!val) return;
-        
+
         if (val.includes('ชม') || val.includes('ชั่วโมง') || val.includes('นาที')) {
-            let h = 0;
-            let m = 0;
+            let h = 0, m = 0;
             const hMatch = val.match(/(\d+)\s*(?:ชม|ชั่วโมง)/);
             if (hMatch) h = parseInt(hMatch[1], 10);
-            
             const mMatch = val.match(/(\d+)\s*นาที/);
             if (mMatch) m = parseInt(mMatch[1], 10);
-            
-            input.value = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+            input.value = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
             return;
         }
-
         if (val.includes(':')) {
-            let [h, m] = val.split(':');
-            h = h.padStart(2, '0');
-            m = m ? m.padStart(2, '0') : '00';
-            input.value = `${h}:${m}`;
+            const [h, m] = val.split(':');
+            input.value = `${h.padStart(2,'0')}:${m ? m.padStart(2,'0') : '00'}`;
         } else {
             const clean = val.replace(/\D/g, '');
             if (clean.length > 0) {
-                if (clean.length <= 2) {
-                    input.value = `${clean.padStart(2, '0')}:00`;
-                } else {
-                    const h = clean.slice(0, -2).padStart(2, '0');
-                    const m = clean.slice(-2);
-                    input.value = `${h}:${m}`;
-                }
+                input.value = clean.length <= 2
+                    ? `${clean.padStart(2,'0')}:00`
+                    : `${clean.slice(0,-2).padStart(2,'0')}:${clean.slice(-2)}`;
             }
         }
     };
 
     const calculateRow = (row) => {
-        const timeInput = row.querySelector('.tab3-time');
+        const timeInput  = row.querySelector('.tab3-time');
         const resultSpan = row.querySelector('.tab3-row-result');
-        const val = timeInput.value.trim();
-        
-        let totalMinutes = null;
-
-        if (val.includes('ชม') || val.includes('ชั่วโมง') || val.includes('นาที')) {
-            let h = 0;
-            let m = 0;
-            const hMatch = val.match(/(\d+)\s*(?:ชม|ชั่วโมง)/);
-            if (hMatch) h = parseInt(hMatch[1], 10);
-            
-            const mMatch = val.match(/(\d+)\s*นาที/);
-            if (mMatch) m = parseInt(mMatch[1], 10);
-            
-            totalMinutes = (h * 60) + m;
-        } else if (val.includes(':')) {
-            const [h, m] = val.split(':').map(Number);
-            if (!isNaN(h) && !isNaN(m)) {
-                totalMinutes = (h * 60) + m;
-            }
-        } else {
-            const clean = val.replace(/\D/g, '');
-            if (clean.length > 0) {
-                if (clean.length <= 2) {
-                    totalMinutes = parseInt(clean, 10) * 60;
-                } else {
-                    const h = parseInt(clean.slice(0, -2), 10);
-                    const m = parseInt(clean.slice(-2), 10);
-                    totalMinutes = (h * 60) + m;
-                }
-            }
-        }
-
-        if (totalMinutes !== null) {
-            resultSpan.textContent = (totalMinutes / 60).toFixed(2);
-        } else {
-            resultSpan.textContent = "0.00";
-        }
-        
+        const mins       = parseTimeToMinutes(timeInput.value);
+        resultSpan.textContent = mins !== null ? (mins / 60).toFixed(2) : '0.00';
         updateExport();
     };
 
+    // ── Export ────────────────────────────────────────────────────────────────
     const updateExport = () => {
         const format = exportFormatSelect.value;
-        const rows = document.querySelectorAll('.tab3-entry');
-        
-        let data = [];
+        const rows   = document.querySelectorAll('.tab3-entry');
+        const data   = [];
+
         rows.forEach(row => {
-            const result = row.querySelector('.tab3-row-result').textContent;
-            const timeInput = row.querySelector('.tab3-time').value.trim();
-            // Only add if there is a result or they entered a time
-            if (result !== "0.00" || timeInput !== "") {
-                data.push(result);
+            const decimal  = row.querySelector('.tab3-row-result').textContent;
+            const timeVal  = row.querySelector('.tab3-time').value.trim();
+            const kmlInput = row.querySelector('.tab3-kml');
+            const kmlVal   = kmlInput ? kmlInput.value.trim() : '';
+
+            const hasData = decimal !== '0.00' || timeVal !== '' || kmlVal !== '';
+            if (!hasData) return;
+
+            if (is2col) {
+                data.push(`${decimal}\t${kmlVal}`);
+            } else {
+                data.push(decimal);
             }
         });
 
-        if (data.length === 0) {
-            exportTextarea.value = "";
-            return;
-        }
-
-        if (format === 'vertical') {
-            // Just Decimal (newlines)
-            exportTextarea.value = data.join('\n');
-        } else {
-            // Horizontal: 
-            // Just Vals (tabs)
-            exportTextarea.value = data.join('\t');
-        }
+        if (data.length === 0) { exportTextarea.value = ''; return; }
+        exportTextarea.value = format === 'vertical' ? data.join('\n') : data.join('\t');
     };
 
+    // ── Remove button visibility ──────────────────────────────────────────────
     const updateRemoveButtons = () => {
         const rows = document.querySelectorAll('.tab3-entry');
-        rows.forEach((row, index) => {
-            const btn = row.querySelector('.tab3-remove-btn');
-            if (rows.length === 1) {
-                btn.classList.add('hidden');
-            } else {
-                btn.classList.remove('hidden');
-            }
+        rows.forEach(row => {
+            row.querySelector('.tab3-remove-btn').classList.toggle('hidden', rows.length === 1);
         });
     };
 
-    // Events
+    // ── Add button ────────────────────────────────────────────────────────────
     addBtn.addEventListener('click', () => {
         entriesContainer.insertAdjacentHTML('beforeend', createRowHTML());
         updateRemoveButtons();
         updateExport();
-        // scroll to bottom
         entriesContainer.scrollTop = entriesContainer.scrollHeight;
     });
 
+    // ── Remove row ────────────────────────────────────────────────────────────
     entriesContainer.addEventListener('click', (e) => {
         const removeBtn = e.target.closest('.tab3-remove-btn');
         if (removeBtn) {
@@ -166,47 +178,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ── Paste handler ─────────────────────────────────────────────────────────
+    // Handles:
+    //   • single-column paste (time values only, one per line)
+    //   • two-column paste from Excel (time \t kml, one row per line)
     entriesContainer.addEventListener('paste', (e) => {
         const target = e.target;
-        if (!target.classList.contains('tab3-time')) return;
+        if (!target.classList.contains('tab3-time') && !target.classList.contains('tab3-kml')) return;
 
         const pasteData = (e.clipboardData || window.clipboardData).getData('text');
         if (!pasteData) return;
 
-        const lines = pasteData.split(/\r\n|\n|\r/).map(l => l.trim()).filter(l => l.length > 0);
-        if (lines.length > 1) {
-            e.preventDefault(); // Stop normal paste
-            
-            let rows = Array.from(document.querySelectorAll('.tab3-entry'));
-            const currentRowIndex = rows.findIndex(row => row.contains(target));
-            
-            lines.forEach((line, i) => {
-                const targetRowIndex = currentRowIndex + i;
-                let row;
-                if (targetRowIndex < rows.length) {
-                    row = rows[targetRowIndex];
-                } else {
-                    entriesContainer.insertAdjacentHTML('beforeend', createRowHTML());
-                    rows = Array.from(document.querySelectorAll('.tab3-entry'));
-                    row = rows[rows.length - 1];
-                }
-                
-                const input = row.querySelector('.tab3-time');
-                input.value = line;
+        const lines = pasteData.split(/\r\n|\n|\r/).map(l => l.trimEnd()).filter(l => l.length > 0);
+        if (lines.length <= 1) return; // single line → let browser handle normally
+
+        e.preventDefault();
+
+        // Detect 2-col paste (any line contains a tab)
+        const hasTabs = lines.some(l => l.includes('\t'));
+
+        let rows = Array.from(document.querySelectorAll('.tab3-entry'));
+        const currentRowIndex = rows.findIndex(row => row.contains(target));
+
+        lines.forEach((line, i) => {
+            const targetIdx = currentRowIndex + i;
+
+            // Add rows as needed
+            if (targetIdx >= rows.length) {
+                entriesContainer.insertAdjacentHTML('beforeend', createRowHTML());
+                rows = Array.from(document.querySelectorAll('.tab3-entry'));
+            }
+
+            const row = rows[targetIdx];
+
+            if (hasTabs) {
+                // Split on first tab only → timeStr | kmlStr
+                const tabIdx = line.indexOf('\t');
+                const timeStr = tabIdx >= 0 ? line.slice(0, tabIdx).trim() : line.trim();
+                const kmlStr  = tabIdx >= 0 ? line.slice(tabIdx + 1).trim() : '';
+
+                const timeInput = row.querySelector('.tab3-time');
+                timeInput.value = timeStr;
                 calculateRow(row);
-                formatTimeInput(input);
-            });
-            
-            updateRemoveButtons();
-            updateExport();
-        }
+                formatTimeInput(timeInput);
+
+                const kmlInput = row.querySelector('.tab3-kml');
+                if (kmlInput) kmlInput.value = kmlStr;
+
+                // Auto-switch to 2-col mode if not already
+                if (!is2col && kmlStr !== '') {
+                    is2col = true;
+                    applyMode();
+                }
+            } else {
+                // Single-column: time only
+                const timeInput = row.querySelector('.tab3-time');
+                timeInput.value = line.trim();
+                calculateRow(row);
+                formatTimeInput(timeInput);
+            }
+        });
+
+        updateRemoveButtons();
+        updateExport();
     });
 
+    // ── Input events ──────────────────────────────────────────────────────────
     entriesContainer.addEventListener('input', (e) => {
         if (e.target.classList.contains('tab3-time')) {
-            const row = e.target.closest('.tab3-entry');
-            calculateRow(row);
-        } else if (e.target.classList.contains('tab3-name')) {
+            calculateRow(e.target.closest('.tab3-entry'));
+        } else if (e.target.classList.contains('tab3-kml')) {
             updateExport();
         }
     });
@@ -214,39 +255,34 @@ document.addEventListener('DOMContentLoaded', () => {
     entriesContainer.addEventListener('focusout', (e) => {
         if (e.target.classList.contains('tab3-time')) {
             formatTimeInput(e.target);
-            const row = e.target.closest('.tab3-entry');
-            calculateRow(row);
+            calculateRow(e.target.closest('.tab3-entry'));
         }
     });
 
+    // ── Export format ─────────────────────────────────────────────────────────
     exportFormatSelect.addEventListener('change', updateExport);
 
+    // ── Copy ──────────────────────────────────────────────────────────────────
     copyBtn.addEventListener('click', () => {
-        if (exportTextarea.value) {
-            exportTextarea.select();
-            document.execCommand('copy');
-            
-            // Visual feedback
-            const originalHTML = copyBtn.innerHTML;
-            copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#34d399" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>`;
-            setTimeout(() => {
-                copyBtn.innerHTML = originalHTML;
-            }, 2000);
-        }
+        if (!exportTextarea.value) return;
+        exportTextarea.select();
+        document.execCommand('copy');
+        const orig = copyBtn.innerHTML;
+        copyBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#34d399" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>`;
+        setTimeout(() => { copyBtn.innerHTML = orig; }, 2000);
     });
 
-    // Initialize
-    updateRemoveButtons();
-
-    // Clear Button Logic
+    // ── Clear ─────────────────────────────────────────────────────────────────
     const clearBtn = document.getElementById('clear-tab3-btn');
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
             const rows = document.querySelectorAll('.tab3-entry');
-            rows.forEach((row, index) => {
-                if (index === 0) {
+            rows.forEach((row, i) => {
+                if (i === 0) {
                     row.querySelector('.tab3-time').value = '';
                     row.querySelector('.tab3-row-result').textContent = '0.00';
+                    const kml = row.querySelector('.tab3-kml');
+                    if (kml) kml.value = '';
                 } else {
                     row.remove();
                 }
@@ -255,4 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateExport();
         });
     }
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    updateRemoveButtons();
 });

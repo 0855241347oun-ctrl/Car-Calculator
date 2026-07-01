@@ -52,12 +52,12 @@
 <body class="bg-zinc-950 min-h-screen text-zinc-100 p-4 md:p-8 flex items-start justify-center font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
 
     <!-- MAIN CONTAINER -->
-    <main class="w-full max-w-6xl rounded-3xl p-6 md:p-8 bg-zinc-900 border border-zinc-800 shadow-2xl flex flex-col md:flex-row gap-8 items-start mt-4">
+    <main class="w-full max-w-[1400px] rounded-3xl p-6 md:p-8 lg:p-10 bg-zinc-900 border border-zinc-800 shadow-2xl flex flex-col lg:flex-row gap-8 items-start mt-4">
 
         <!-- SIDEBAR -->
-        <aside class="w-full md:w-64 shrink-0 flex flex-col">
+        <aside class="w-full lg:w-64 shrink-0 flex flex-col">
 
-            <header class="mb-8 md:text-left text-center">
+            <header class="mb-8 lg:text-left text-center">
                 <h1 class="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
                     Calculator
                 </h1>
@@ -83,10 +83,10 @@
         </aside>
 
         <!-- CONTENT AREA -->
-        <div id="tabs-content-container" class="flex-1 grid grid-cols-1 xl:grid-cols-2 gap-6 w-full">
+        <div id="tabs-content-container" class="flex-1 grid grid-cols-1 xl:grid-cols-2 gap-8 w-full">
 
             <!-- TAB 1: TIME DIFFERENCE CALCULATOR -->
-            <div id="tab-1" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
+            <div id="tab-1" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 lg:p-8 border border-zinc-800">
                 <section class="mb-6 space-y-4">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">เครื่องคำนวณหาส่วนต่างเวลา</h2>
@@ -141,22 +141,22 @@
             </div>
 
             <!-- TAB 2: SUM TIME FROM TEXT -->
-            <div id="tab-2" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
-                <section class="mb-6 space-y-4">
+            <div id="tab-2" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 lg:p-8 border border-zinc-800">
+                <section class="mb-6 space-y-6">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">บวกเวลา (จากข้อความ)</h2>
-                        <button id="clear-tab2-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
+                        <button id="clear-tab2-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
                             ล้างข้อมูล
                         </button>
                     </div>
                     <p class="text-sm text-zinc-400 mb-2 leading-relaxed">วางข้อความที่มีเวลาอยู่ข้างใน (เช่น เวลาเดินรถ06:36:2) ระบบจะดึงเฉพาะชั่วโมงและนาทีมาบวกกันโดยอัตโนมัติ</p>
 
-                    <div class="bg-zinc-900 p-2 rounded-xl border border-zinc-800">
-                        <textarea id="raw-time-text" rows="5" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 placeholder-zinc-600 resize-none font-sans text-sm" placeholder="วางข้อความที่นี่..."></textarea>
+                    <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
+                        <textarea id="raw-time-text" rows="6" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 placeholder-zinc-600 resize-none font-sans text-sm leading-relaxed" placeholder="วางข้อความที่นี่..."></textarea>
                     </div>
 
-                    <button id="calc-tab2-btn" class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99]">
+                    <button id="calc-tab2-btn" class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99] transition-all">
                         สกัดเวลาและคำนวณผลรวม
                     </button>
                 </section>
@@ -168,11 +168,11 @@
                         <div id="tab2-detected-times" class="font-mono text-zinc-300 text-sm leading-relaxed"></div>
                     </div>
                     <div class="grid grid-cols-2 gap-4 text-center">
-                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all">
                             <p class="text-xs text-zinc-400 mb-1.5">เวลารวมทั้งหมด</p>
                             <p id="tab2-result-hm" class="text-xl font-bold text-zinc-100">0 ชม. 0 นาที</p>
                         </div>
-                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all">
                             <p class="text-xs text-zinc-400 mb-1.5">คิดเป็นชั่วโมง (ทศนิยม)</p>
                             <p id="tab2-result-decimal" class="text-xl font-bold text-indigo-400 font-mono">0.00</p>
                         </div>
@@ -181,40 +181,61 @@
             </div>
 
             <!-- TAB 3: TIME TO DECIMAL HOURS -->
-            <div id="tab-3" class="tab-content block bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
-                <section class="space-y-4">
+            <div id="tab-3" class="tab-content block bg-zinc-950/50 rounded-2xl p-6 lg:p-8 border border-zinc-800">
+                <section class="space-y-5">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">เวลา &rarr; ชั่วโมงทศนิยม</h2>
-                        <button id="clear-tab3-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
-                            ล้างข้อมูล
-                        </button>
-                    </div>
-                    <p class="text-sm text-zinc-400 leading-relaxed">ใส่เวลา (หรือวางจาก Excel หลายๆ บรรทัด) ระบบจะแปลงเป็นชั่วโมงทศนิยมให้อัตโนมัติ</p>
-
-                    <div id="tab3-entries" class="space-y-3 max-h-[350px] overflow-y-auto pr-2">
-                        <!-- Initial Row -->
-                        <div class="tab3-entry flex flex-col sm:flex-row gap-4 bg-zinc-900 p-4 rounded-xl border border-zinc-800 relative hover:border-zinc-700">
-                            <button type="button" class="tab3-remove-btn absolute top-3 right-3 text-zinc-500 hover:text-red-400 hidden bg-zinc-950 p-1 rounded-md">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
-                            </button>
-                            <div class="flex-1">
-                                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ช่วงเวลา</label>
-                                <input type="text" placeholder="15:10 หรือ 53 นาที" class="tab3-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        <div class="flex items-center gap-2">
+                            <!-- Mode toggle -->
+                            <div class="flex bg-zinc-950 border border-zinc-800 rounded-lg p-0.5">
+                                <button id="tab3-mode-1col" class="tab3-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all bg-indigo-600 text-white shadow-sm">1 คอลัมน์</button>
+                                <button id="tab3-mode-2col" class="tab3-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all text-zinc-400 hover:text-zinc-200">+ กม./ลิตร</button>
                             </div>
-                            <div class="flex-none sm:w-28 flex flex-col justify-center items-end sm:items-center mt-2 sm:mt-0">
-                                <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 sm:hidden font-semibold">ชั่วโมงทศนิยม</label>
-                                <span class="tab3-row-result text-2xl font-bold text-indigo-400 font-mono">0.00</span>
+                            <button id="clear-tab3-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                ล้างข้อมูล
+                            </button>
+                        </div>
+                    </div>
+                    <!-- hint changes by mode -->
+                    <p id="tab3-hint-1col" class="text-sm text-zinc-400 leading-relaxed">ใส่เวลา (หรือวางจาก Excel หลายๆ บรรทัด) ระบบจะแปลงเป็นชั่วโมงทศนิยมให้อัตโนมัติ</p>
+                    <p id="tab3-hint-2col" class="text-sm text-zinc-400 leading-relaxed hidden">วางข้อมูล 2 คอลัมน์จาก Excel (เวลา <kbd class="bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-300 text-xs font-mono">Tab</kbd> กม./ลิตร) ระบบจะแปลงเวลาและเก็บค่า กม./ลิตร ไว้ให้</p>
+
+                    <!-- Wrapper to prevent squishing when dual column is active on narrow width -->
+                    <div class="overflow-x-auto -mx-2 px-2 scrollbar-thin">
+                        <div class="min-w-[450px] sm:min-w-0 space-y-3">
+                            <!-- column headers (shown in 2-col mode) -->
+                            <div id="tab3-col-headers" class="hidden flex items-center gap-3 px-2">
+                                <div class="w-8 shrink-0"></div>
+                                <div class="flex-1 text-[10px] uppercase tracking-widest font-bold text-zinc-500">⏱ เวลา</div>
+                                <div class="w-24 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-right">ชม.ทศนิยม</div>
+                                <div class="tab3-kml-hdr w-32 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 pl-3">⛽ กม./ลิตร</div>
+                            </div>
+
+                            <div id="tab3-entries" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
+                                <!-- Initial Row -->
+                                <div class="tab3-entry flex items-center gap-3 bg-zinc-900 p-3.5 rounded-xl border border-zinc-800 relative hover:border-zinc-700 transition-all">
+                                    <button type="button" class="tab3-remove-btn w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-red-400 hidden shrink-0 rounded-lg hover:bg-zinc-800 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
+                                    </button>
+                                    <input type="text" placeholder="15:10 หรือ 53 นาที" class="tab3-time flex-1 min-w-0 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-zinc-100 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+                                    <span class="tab3-row-result w-24 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
+                                    <!-- kml column (hidden in 1-col mode) -->
+                                    <div class="tab3-kml-col hidden items-center gap-2 shrink-0">
+                                        <div class="w-px h-6 bg-zinc-800"></div>
+                                        <input type="text" placeholder="กม./ล." class="tab3-kml w-32 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-emerald-300 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <button id="add-tab3-btn" class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99]">
+                    <button id="add-tab3-btn" class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99] transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /></svg>
                         เพิ่มรายการ
                     </button>
 
-                    <section id="tab3-export-section" class="bg-zinc-900 rounded-xl p-5 border border-zinc-800 mt-6">
+                    <section id="tab3-export-section" class="bg-zinc-900 rounded-xl p-5 border border-zinc-800 mt-2">
                         <div class="flex justify-between items-center mb-3">
                             <h2 class="text-xs text-zinc-400 font-semibold uppercase tracking-wider">คัดลอกลง Excel</h2>
                             <div class="flex items-center gap-2">
@@ -236,11 +257,11 @@
             </div>
 
             <!-- TAB 4: FUEL CALCULATOR -->
-            <div id="tab-4" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
+            <div id="tab-4" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 lg:p-8 border border-zinc-800">
                 <section class="space-y-4">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">คำนวณน้ำมันคงเหลือ</h2>
-                        <button id="clear-tab4-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
+                        <button id="clear-tab4-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
                             ล้างข้อมูล
                         </button>
