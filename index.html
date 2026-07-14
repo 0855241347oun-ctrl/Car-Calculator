@@ -443,9 +443,15 @@
                             <p class="text-xs text-zinc-400 mb-1.5">เวลารวมทั้งหมด</p>
                             <p id="tab2-result-hm" class="text-xl font-bold text-zinc-100">0 ชม. 0 นาที</p>
                         </div>
-                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all">
+                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all relative">
                             <p class="text-xs text-zinc-400 mb-1.5">คิดเป็นชั่วโมง (ทศนิยม)</p>
-                            <p id="tab2-result-decimal" class="text-xl font-bold text-indigo-400 font-mono">0.00</p>
+                            <div class="flex items-center justify-center gap-2">
+                                <p id="tab2-result-decimal" class="text-xl font-bold text-indigo-400 font-mono">0.00</p>
+                                <button id="copy-tab2-decimal-btn" onclick="copyTab2Decimal()" type="button" class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner relative" title="คัดลอกค่า">
+                                    <svg id="copy-tab2-decimal-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path></svg>
+                                    <svg id="copy-tab2-decimal-check" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" class="hidden text-green-400"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </section>

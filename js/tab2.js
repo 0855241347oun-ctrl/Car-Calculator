@@ -63,3 +63,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// Global copy function for tab2 decimal result
+function copyTab2Decimal() {
+    const value = document.getElementById('tab2-result-decimal').textContent;
+    navigator.clipboard.writeText(value).then(() => {
+        const icon = document.getElementById('copy-tab2-decimal-icon');
+        const check = document.getElementById('copy-tab2-decimal-check');
+        icon.classList.add('hidden');
+        check.classList.remove('hidden');
+        setTimeout(() => {
+            check.classList.add('hidden');
+            icon.classList.remove('hidden');
+        }, 1500);
+    });
+}
