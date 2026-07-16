@@ -29,6 +29,18 @@
             const resizeHandle = document.getElementById('calc-resize-handle');
             if (body) body.style.display = '';
             if (resizeHandle) resizeHandle.style.display = '';
+            
+            // Center the window on open
+            const vw = window.innerWidth;
+            const vh = window.innerHeight;
+            const pad = 8;
+            const winW = Math.min(340, vw - pad * 2);
+            const winH = Math.min(520, vh - pad * 2);
+            calcWindow.style.width = winW + 'px';
+            calcWindow.style.height = winH + 'px';
+            calcWindow.style.left = Math.max(pad, (vw - winW) / 2) + 'px';
+            calcWindow.style.top = Math.max(pad, (vh - winH) / 2) + 'px';
+
             // Re-trigger entry animation
             requestAnimationFrame(() => {
                 calcWindow.classList.add('calc-window-visible');
