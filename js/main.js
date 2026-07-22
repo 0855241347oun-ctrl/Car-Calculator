@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         menuBtns.forEach(btn => {
             const targetId = btn.getAttribute('data-target');
             if (activeTabs.includes(targetId)) {
-                btn.classList.add('active', 'border-indigo-500', 'bg-zinc-800', 'text-zinc-100', 'shadow-sm');
-                btn.classList.remove('border-transparent', 'text-zinc-400', 'hover:text-zinc-200', 'hover:bg-zinc-800/50');
+                btn.classList.add('active', 'border-indigo-500', 'bg-indigo-500/10', 'text-white', 'shadow-lg', 'shadow-indigo-500/5');
+                btn.classList.remove('border-transparent', 'text-zinc-400', 'hover:text-zinc-200', 'hover:bg-zinc-800/40');
             } else {
-                btn.classList.remove('active', 'border-indigo-500', 'bg-zinc-800', 'text-zinc-100', 'shadow-sm');
-                btn.classList.add('border-transparent', 'text-zinc-400', 'hover:text-zinc-200', 'hover:bg-zinc-800/50');
+                btn.classList.remove('active', 'border-indigo-500', 'bg-indigo-500/10', 'text-white', 'shadow-lg', 'shadow-indigo-500/5');
+                btn.classList.add('border-transparent', 'text-zinc-400', 'hover:text-zinc-200', 'hover:bg-zinc-800/40');
             }
         });
 

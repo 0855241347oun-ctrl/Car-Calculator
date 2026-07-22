@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Multi-Formula Calculator</title>
+    <!-- Favicon -->
+    <link rel="icon" href="ICON/ICON.png" type="image/png">
     <!-- Use Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -47,6 +49,35 @@
             transition-duration: 300ms;
         }
 
+        /* Custom Input Styling */
+        input[type="text"], input[type="number"], select, textarea {
+            background-color: rgba(0, 0, 0, 0.3) !important;
+            border-color: rgba(63, 63, 70, 0.5) !important;
+            border-radius: 12px !important;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+            border-color: #6366f1 !important;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), inset 0 2px 4px 0 rgba(0, 0, 0, 0.1) !important;
+            background-color: rgba(0, 0, 0, 0.4) !important;
+        }
+        input[type="text"]:hover:not(:focus), input[type="number"]:hover:not(:focus), select:hover:not(:focus), textarea:hover:not(:focus) {
+            border-color: rgba(82, 82, 91, 0.8) !important;
+        }
+
+        /* Primary Buttons Glow */
+        #calculate-btn, #calc-tab2-btn {
+            background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
+            box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4), 0 8px 10px -6px rgba(99, 102, 241, 0.1) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            letter-spacing: 0.025em;
+        }
+        #calculate-btn:hover, #calc-tab2-btn:hover {
+            background: linear-gradient(135deg, #818cf8, #6366f1) !important;
+            box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.5), 0 8px 10px -6px rgba(99, 102, 241, 0.2) !important;
+            transform: translateY(-1px);
+        }
+
         /* ═══════════════════════════════════════════════════
            FLOATING CALCULATOR WINDOW
            ═══════════════════════════════════════════════════ */
@@ -61,13 +92,15 @@
             max-height: calc(100vh - 16px);
             display: flex;
             flex-direction: column;
-            background: linear-gradient(145deg, #1a1a2e 0%, #16162a 50%, #0f0f1a 100%);
-            border: 1px solid rgba(99, 102, 241, 0.25);
+            background: linear-gradient(145deg, rgba(26,26,46,0.95) 0%, rgba(22,22,42,0.95) 50%, rgba(15,15,26,0.95) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 20px;
             box-shadow:
-                0 25px 60px rgba(0, 0, 0, 0.6),
-                0 0 40px rgba(99, 102, 241, 0.08),
-                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+                0 30px 70px rgba(0, 0, 0, 0.7),
+                0 0 40px rgba(99, 102, 241, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
             overflow: hidden;
             font-family: 'Inter', sans-serif;
             opacity: 0;
@@ -152,6 +185,11 @@
             padding: 0 8px;
             letter-spacing: 0.03em;
         }
+        .calc-preview-result {
+            color: #a5b4fc;
+            font-weight: 600;
+            margin-left: 4px;
+        }
         .calc-display {
             text-align: right;
             font-size: 2.6rem;
@@ -159,7 +197,7 @@
             color: #f4f4f5;
             font-family: 'Inter', sans-serif;
             padding: 8px 12px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             border-radius: 14px;
             border: 1px solid rgba(255, 255, 255, 0.04);
             min-height: 68px;
@@ -170,6 +208,7 @@
             line-height: 1.1;
             letter-spacing: -0.02em;
             transition: font-size 0.15s ease;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
         }
 
         /* ── Keypad ── */
@@ -200,13 +239,13 @@
 
         /* Number keys */
         .calc-key-num {
-            background: rgba(255, 255, 255, 0.06);
-            color: #e4e4e7;
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.08);
+            color: #f4f4f5;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
         .calc-key-num:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.12);
         }
 
         /* Function keys (C, ±) */
@@ -302,16 +341,16 @@
     </style>
 </head>
 
-<body class="bg-zinc-950 min-h-screen text-zinc-100 p-4 md:p-8 flex items-start justify-center font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+<body class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-black min-h-screen text-zinc-100 p-4 md:p-8 flex items-start justify-center font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
 
     <!-- MAIN CONTAINER -->
-    <main class="w-full max-w-[1400px] rounded-3xl p-6 md:p-8 lg:p-10 bg-zinc-900 border border-zinc-800 shadow-2xl flex flex-col lg:flex-row gap-8 items-start mt-4">
+    <main class="w-full max-w-[1400px] rounded-3xl p-6 md:p-8 lg:p-10 bg-zinc-900/60 backdrop-blur-xl border border-zinc-700/30 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] flex flex-col lg:flex-row gap-8 items-start mt-4">
 
         <!-- SIDEBAR -->
         <aside class="w-full lg:w-64 shrink-0 flex flex-col">
 
             <header class="mb-8 lg:text-left text-center">
-                <h1 class="text-3xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-cyan-400">
+                <h1 class="text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 drop-shadow-sm pb-1">
                     Calculator
                 </h1>
                 <p class="text-zinc-400 mt-2 text-sm font-medium">ศูนย์รวมสูตรคำนวณ</p>
@@ -319,27 +358,30 @@
             </header>
 
             <nav id="tabs-nav" class="flex flex-col gap-2">
-                <button data-target="tab-3" class="menu-btn active text-left px-4 py-3 rounded-xl border-l-4 text-sm font-medium transition-colors border-indigo-500 bg-zinc-800 text-zinc-100 shadow-sm">
+                <button data-target="tab-3" class="menu-btn active text-left px-5 py-3.5 rounded-xl border-l-4 text-sm font-medium transition-all duration-300 border-indigo-500 bg-indigo-500/10 text-white shadow-lg shadow-indigo-500/5">
                     1. เวลา → ชั่วโมง
                 </button>
-                <button data-target="tab-2" class="menu-btn text-left px-4 py-3 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors">
+                <button data-target="tab-2" class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                     2. บวกเวลา (ข้อความ)
                 </button>
-                <button data-target="tab-1" class="menu-btn text-left px-4 py-3 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors">
+                <button data-target="tab-1" class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                     3. หาส่วนต่างเวลา
                 </button>
-                <button data-target="tab-4" class="menu-btn text-left px-4 py-3 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50 transition-colors">
+                <button data-target="tab-4" class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                     4. คำนวณน้ำมัน
+                </button>
+                <button data-target="tab-5" class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                    5. คำนวณ L เป็น %
                 </button>
 
                 <!-- Divider -->
-                <div class="my-2 border-t border-zinc-800"></div>
+                <div class="my-3 border-t border-zinc-700/50"></div>
 
                 <!-- Floating Calculator Button -->
-                <button onclick="toggleFloatingCalculator()" class="calc-sidebar-btn w-full text-left px-4 py-3 rounded-xl border-l-4 border-transparent text-sm font-medium text-indigo-300 hover:text-indigo-200 hover:bg-indigo-500/10 hover:border-indigo-500/50 transition-all flex items-center gap-2.5">
-                    <span class="text-base">🧮</span>
+                <button onclick="toggleFloatingCalculator()" class="calc-sidebar-btn w-full text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-indigo-300 hover:text-indigo-200 hover:bg-indigo-500/15 hover:border-indigo-400/50 transition-all duration-300 flex items-center gap-3">
+                    <span class="text-lg">🧮</span>
                     <span>เครื่องคิดเลข</span>
-                    <span class="ml-auto text-[10px] uppercase tracking-wider text-zinc-500 bg-zinc-800 px-2 py-0.5 rounded-md font-semibold">popup</span>
+                    <span class="ml-auto text-[10px] uppercase tracking-widest text-indigo-200 bg-indigo-500/20 px-2 py-0.5 rounded-md font-bold shadow-sm">popup</span>
                 </button>
             </nav>
 
@@ -597,6 +639,53 @@
                 </section>
             </div>
 
+            <!-- TAB 5: L TO % CALCULATOR -->
+            <div id="tab-5" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 lg:p-8 border border-zinc-800">
+                <section class="space-y-4">
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-lg font-semibold text-zinc-100">คำนวณค่าน้ำมัน L เป็น %</h2>
+                        <button id="clear-tab5-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            ล้างข้อมูล
+                        </button>
+                    </div>
+                    <p class="text-sm text-zinc-400 mb-4">แปลงปริมาณน้ำมัน (ลิตร) เป็นเปอร์เซ็นต์ตามขนาดถัง</p>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถังน้ำมัน (ลิตร)</label>
+                            <select id="tab5-tank-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans mb-2">
+                                <option value="400">400 L</option>
+                                <option value="340">340 L</option>
+                                <option value="420">420 L</option>
+                                <option value="240">240 L</option>
+                                <option value="custom">กำหนดเอง</option>
+                            </select>
+                            <input id="tab5-tank-custom" type="number" inputmode="decimal" placeholder="ระบุขนาดถัง" min="1" class="hidden w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        </div>
+                        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ปริมาณน้ำมัน (ลิตร)</label>
+                            <input id="tab5-liters" type="number" inputmode="decimal" placeholder="เช่น 120" min="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        </div>
+                    </div>
+
+                    <section id="tab5-result" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 opacity-100 transition-opacity">
+                        <div class="flex justify-center text-center">
+                            <div class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700/50 hover:scale-[1.02] w-full max-w-sm relative">
+                                <p class="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">คิดเป็นเปอร์เซ็นต์</p>
+                                <div class="flex items-center justify-center gap-3">
+                                    <p id="tab5-pct-result" class="text-3xl font-bold text-indigo-400 font-mono">0.00%</p>
+                                    <button id="copy-tab5-btn" type="button" class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner" title="คัดลอกค่า">
+                                        <svg id="copy-tab5-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path></svg>
+                                        <svg id="copy-tab5-check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" class="hidden text-white"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+            </div>
+
         </div>
 
     </main>
@@ -606,6 +695,7 @@
     <script src="js/tab2.js"></script>
     <script src="js/tab3.js"></script>
     <script src="js/tab4.js"></script>
+    <script src="js/tab5.js"></script>
     <script src="js/calculator.js"></script>
 </body>
 

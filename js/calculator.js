@@ -8,7 +8,6 @@
     'use strict';
 
     let calcOpen = false;
-    let calcMinimized = false;
     let calcWindow = null;
 
     // ── State ──
@@ -23,7 +22,6 @@
         if (calcWindow) {
             calcWindow.style.display = 'flex';
             calcOpen = true;
-            calcMinimized = false;
             // Re-show body & resize handle in case it was minimized
             const body = document.getElementById('calc-body');
             const resizeHandle = document.getElementById('calc-resize-handle');
@@ -58,9 +56,6 @@
                     <span class="calc-title-text">เครื่องคิดเลข</span>
                 </div>
                 <div class="calc-titlebar-right">
-                    <button class="calc-tb-btn calc-minimize-btn" id="calc-minimize-btn" title="ย่อหน้าต่าง">
-                        <svg width="12" height="12" viewBox="0 0 12 12"><rect x="1" y="5.5" width="10" height="1.5" rx="0.5" fill="currentColor"/></svg>
-                    </button>
                     <button class="calc-tb-btn calc-close-btn" id="calc-close-btn" title="ปิดหน้าต่าง">
                         <svg width="12" height="12" viewBox="0 0 12 12"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
                     </button>
@@ -68,7 +63,10 @@
             </div>
             <div class="calc-body" id="calc-body">
                 <div class="calc-history" id="calc-history"></div>
-                <div class="calc-display" id="calc-display">0</div>
+                <div style="display: flex; gap: 8px;">
+                    <div class="calc-display" id="calc-display" style="flex: 1;">0</div>
+                    <button class="calc-key calc-key-func" data-action="backspace" style="width: 60px; font-size: 20px;">⌫</button>
+                </div>
                 <div class="calc-keypad" id="calc-keypad">
                     <button class="calc-key calc-key-func" data-action="clear">C</button>
                     <button class="calc-key calc-key-func" data-action="sign">±</button>
@@ -121,11 +119,10 @@
 
         // ── Button actions ──
         document.getElementById('calc-close-btn').addEventListener('click', closeCalc);
-        document.getElementById('calc-minimize-btn').addEventListener('click', minimizeCalc);
 
-        // ── Keypad ──
-        const keypad = document.getElementById('calc-keypad');
-        keypad.addEventListener('click', (e) => {
+        // ── Keypad & Backspace ──
+        const calcBody = document.getElementById('calc-body');
+        calcBody.addEventListener('click', (e) => {
             const btn = e.target.closest('.calc-key');
             if (!btn) return;
             const action = btn.dataset.action;
@@ -140,6 +137,7 @@
                 case 'operator': handleOperator(value); break;
                 case 'equals': handleEquals(); break;
                 case 'clear': clearCalc(); break;
+                case 'backspace': backspace(); break;
                 case 'sign': toggleSign(); break;
             }
             updateDisplay();
@@ -239,6 +237,16 @@
     function updateDisplay() {
         const disp = document.getElementById('calc-display');
         const hist = document.getElementById('calc-history');
+        
+        let histText = history;
+        if (operator && previousValue !== null && !waitingForOperand) {
+            const currentVal = parseFloat(display);
+            if (!isNaN(currentVal)) {
+                const res = calculate(previousValue, currentVal, operator);
+                histText = `${history} ${display} <span class="calc-preview-result">= ${formatResult(res)}</span>`;
+            }
+        }
+
         if (disp) {
             disp.textContent = display;
             // Auto-shrink font for long numbers
@@ -250,7 +258,7 @@
                 disp.style.fontSize = '';
             }
         }
-        if (hist) hist.textContent = history;
+        if (hist) hist.innerHTML = histText;
 
         // Highlight active operator
         document.querySelectorAll('.calc-key-op-primary').forEach(btn => {
@@ -264,7 +272,7 @@
 
     // ── Keyboard handler ──
     function handleKeyboard(e) {
-        if (!calcOpen || calcMinimized) return;
+        if (!calcOpen) return;
         const key = e.key;
 
         if (key >= '0' && key <= '9') { inputDigit(key); e.preventDefault(); }
@@ -425,7 +433,7 @@
         ripple.addEventListener('animationend', () => ripple.remove());
     }
 
-    // ── Open / Close / Minimize ──
+    // ── Open / Close ──
     function closeCalc() {
         if (calcWindow) {
             calcWindow.classList.remove('calc-window-visible');
@@ -433,23 +441,6 @@
                 calcWindow.style.display = 'none';
                 calcOpen = false;
             }, 250);
-        }
-    }
-
-    function minimizeCalc() {
-        if (!calcWindow) return;
-        const body = document.getElementById('calc-body');
-        const resizeHandle = document.getElementById('calc-resize-handle');
-        if (calcMinimized) {
-            body.style.display = '';
-            resizeHandle.style.display = '';
-            calcWindow.style.height = '';
-            calcMinimized = false;
-        } else {
-            body.style.display = 'none';
-            resizeHandle.style.display = 'none';
-            calcWindow.style.height = 'auto';
-            calcMinimized = true;
         }
     }
 
