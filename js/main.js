@@ -61,6 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- DROPDOWN MENU LOGIC ---
+    const dropdownBtn = document.getElementById('menu-5-dropdown-btn');
+    if (dropdownBtn) {
+        dropdownBtn.addEventListener('click', () => {
+            const content = document.getElementById('menu-5-dropdown-content');
+            const icon = document.getElementById('menu-5-icon');
+            
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                content.classList.add('flex');
+                icon.classList.add('rotate-180');
+                dropdownBtn.classList.add('bg-zinc-800/20');
+            } else {
+                content.classList.add('hidden');
+                content.classList.remove('flex');
+                icon.classList.remove('rotate-180');
+                dropdownBtn.classList.remove('bg-zinc-800/20');
+            }
+        });
+    }
+
     // Initialize UI
     updateUI();
 });
