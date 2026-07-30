@@ -34,45 +34,65 @@
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #3f3f46; /* zinc-700 */
+            background: #3f3f46;
+            /* zinc-700 */
             border-radius: 8px;
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #52525b; /* zinc-600 */
+            background: #52525b;
+            /* zinc-600 */
         }
-        
+
         /* Smooth transitions for all interactables */
-        input, button, select, textarea, .tab-content {
+        input,
+        button,
+        select,
+        textarea,
+        .tab-content {
             transition-property: all;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 300ms;
         }
 
         /* Custom Input Styling */
-        input[type="text"], input[type="number"], select, textarea {
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
             background-color: rgba(0, 0, 0, 0.3) !important;
             border-color: rgba(63, 63, 70, 0.5) !important;
             border-radius: 12px !important;
             box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2) !important;
         }
-        input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
             border-color: #6366f1 !important;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), inset 0 2px 4px 0 rgba(0, 0, 0, 0.1) !important;
             background-color: rgba(0, 0, 0, 0.4) !important;
         }
-        input[type="text"]:hover:not(:focus), input[type="number"]:hover:not(:focus), select:hover:not(:focus), textarea:hover:not(:focus) {
+
+        input[type="text"]:hover:not(:focus),
+        input[type="number"]:hover:not(:focus),
+        select:hover:not(:focus),
+        textarea:hover:not(:focus) {
             border-color: rgba(82, 82, 91, 0.8) !important;
         }
 
         /* Primary Buttons Glow */
-        #calculate-btn, #calc-tab2-btn {
+        #calculate-btn,
+        #calc-tab2-btn {
             background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
             box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.4), 0 8px 10px -6px rgba(99, 102, 241, 0.1) !important;
             border: 1px solid rgba(255, 255, 255, 0.1) !important;
             letter-spacing: 0.025em;
         }
-        #calculate-btn:hover, #calc-tab2-btn:hover {
+
+        #calculate-btn:hover,
+        #calc-tab2-btn:hover {
             background: linear-gradient(135deg, #818cf8, #6366f1) !important;
             box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.5), 0 8px 10px -6px rgba(99, 102, 241, 0.2) !important;
             transform: translateY(-1px);
@@ -92,7 +112,7 @@
             max-height: calc(100vh - 16px);
             display: flex;
             flex-direction: column;
-            background: linear-gradient(145deg, rgba(26,26,46,0.95) 0%, rgba(22,22,42,0.95) 50%, rgba(15,15,26,0.95) 100%);
+            background: linear-gradient(145deg, rgba(26, 26, 46, 0.95) 0%, rgba(22, 22, 42, 0.95) 50%, rgba(15, 15, 26, 0.95) 100%);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(99, 102, 241, 0.3);
@@ -106,8 +126,9 @@
             opacity: 0;
             transform: scale(0.9) translateY(20px);
             transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
-                        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+
         #calc-floating-window.calc-window-visible {
             opacity: 1;
             transform: scale(1) translateY(0);
@@ -125,24 +146,34 @@
             user-select: none;
             -webkit-user-select: none;
         }
-        .calc-titlebar:active { cursor: grabbing; }
+
+        .calc-titlebar:active {
+            cursor: grabbing;
+        }
+
         .calc-titlebar-left {
             display: flex;
             align-items: center;
             gap: 8px;
         }
-        .calc-title-icon { font-size: 16px; }
+
+        .calc-title-icon {
+            font-size: 16px;
+        }
+
         .calc-title-text {
             font-size: 13px;
             font-weight: 600;
             color: #c7c7d4;
             letter-spacing: 0.02em;
         }
+
         .calc-titlebar-right {
             display: flex;
             align-items: center;
             gap: 6px;
         }
+
         .calc-tb-btn {
             width: 28px;
             height: 28px;
@@ -156,10 +187,12 @@
             background: transparent;
             transition: all 0.15s ease;
         }
+
         .calc-tb-btn:hover {
             background: rgba(255, 255, 255, 0.08);
             color: #d4d4d8;
         }
+
         .calc-close-btn:hover {
             background: rgba(239, 68, 68, 0.25);
             color: #f87171;
@@ -185,11 +218,13 @@
             padding: 0 8px;
             letter-spacing: 0.03em;
         }
+
         .calc-preview-result {
             color: #a5b4fc;
             font-weight: 600;
             margin-left: 4px;
         }
+
         .calc-display {
             text-align: right;
             font-size: 2.6rem;
@@ -218,6 +253,7 @@
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
         }
+
         .calc-key {
             position: relative;
             overflow: hidden;
@@ -233,6 +269,7 @@
             transition: all 0.12s ease;
             -webkit-tap-highlight-color: transparent;
         }
+
         .calc-key:active {
             transform: scale(0.93);
         }
@@ -243,6 +280,7 @@
             color: #f4f4f5;
             border: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .calc-key-num:hover {
             background: rgba(255, 255, 255, 0.15);
             border-color: rgba(255, 255, 255, 0.12);
@@ -254,6 +292,7 @@
             color: #c4b5fd;
             border: 1px solid rgba(139, 92, 246, 0.15);
         }
+
         .calc-key-func:hover {
             background: rgba(139, 92, 246, 0.22);
         }
@@ -264,6 +303,7 @@
             color: #a5b4fc;
             border: 1px solid rgba(99, 102, 241, 0.15);
         }
+
         .calc-key-op:hover {
             background: rgba(99, 102, 241, 0.25);
         }
@@ -275,9 +315,11 @@
             border: 1px solid rgba(99, 102, 241, 0.25);
             font-size: 22px;
         }
+
         .calc-key-op-primary:hover {
             background: linear-gradient(135deg, rgba(99, 102, 241, 0.45), rgba(79, 70, 229, 0.55));
         }
+
         .calc-key-op-active {
             background: linear-gradient(135deg, #6366f1, #4f46e5) !important;
             color: #fff !important;
@@ -297,6 +339,7 @@
             font-size: 22px;
             box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
+
         .calc-key-equals:hover {
             background: linear-gradient(135deg, #818cf8, #6366f1);
             box-shadow: 0 4px 20px rgba(99, 102, 241, 0.45);
@@ -310,9 +353,17 @@
             pointer-events: none;
             animation: calc-ripple-anim 0.5s ease-out;
         }
+
         @keyframes calc-ripple-anim {
-            from { transform: scale(0); opacity: 1; }
-            to { transform: scale(3); opacity: 0; }
+            from {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(3);
+                opacity: 0;
+            }
         }
 
         /* ── Resize handle ── */
@@ -326,31 +377,43 @@
             background: linear-gradient(135deg, transparent 50%, rgba(99, 102, 241, 0.3) 50%);
             border-radius: 0 0 20px 0;
         }
+
         .calc-resize-handle:hover {
             background: linear-gradient(135deg, transparent 50%, rgba(99, 102, 241, 0.5) 50%);
         }
 
         /* ── Sidebar calc button pulse ── */
         @keyframes calc-btn-glow {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
-            50% { box-shadow: 0 0 12px 2px rgba(99, 102, 241, 0.25); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+
+            50% {
+                box-shadow: 0 0 12px 2px rgba(99, 102, 241, 0.25);
+            }
         }
+
         .calc-sidebar-btn {
             animation: calc-btn-glow 3s ease-in-out infinite;
         }
     </style>
 </head>
 
-<body class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-black min-h-screen text-zinc-100 p-4 md:p-8 flex flex-col items-center justify-start font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
+<body
+    class="bg-gradient-to-br from-zinc-950 via-zinc-900 to-black min-h-screen text-zinc-100 p-4 md:p-8 flex flex-col items-center justify-start font-sans selection:bg-indigo-500/30 selection:text-indigo-200">
 
     <!-- MAIN CONTAINER -->
-    <main class="w-full max-w-[1400px] rounded-3xl p-6 md:p-8 lg:p-10 bg-zinc-900/60 backdrop-blur-xl border border-zinc-700/30 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] flex flex-col lg:flex-row gap-8 items-start">
+    <main
+        class="w-full max-w-[1400px] rounded-3xl p-6 md:p-8 lg:p-10 bg-zinc-900/60 backdrop-blur-xl border border-zinc-700/30 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.6)] flex flex-col lg:flex-row gap-8 items-start">
 
         <!-- SIDEBAR -->
         <aside class="w-full lg:w-64 shrink-0 flex flex-col">
 
             <header class="mb-8 lg:text-left text-center">
-                <h1 class="text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 drop-shadow-sm pb-1">
+                <h1
+                    class="text-4xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400 drop-shadow-sm pb-1">
                     Calculator
                 </h1>
                 <p class="text-zinc-400 mt-2 text-sm font-medium">ศูนย์รวมสูตรคำนวณ</p>
@@ -358,29 +421,41 @@
             </header>
 
             <nav id="tabs-nav" class="flex flex-col gap-2">
-                <button data-target="tab-3" class="menu-btn active text-left px-5 py-3.5 rounded-xl border-l-4 text-sm font-medium transition-all duration-300 border-indigo-500 bg-indigo-500/10 text-white shadow-lg shadow-indigo-500/5">
+                <button data-target="tab-3"
+                    class="menu-btn active text-left px-5 py-3.5 rounded-xl border-l-4 text-sm font-medium transition-all duration-300 border-indigo-500 bg-indigo-500/10 text-white shadow-lg shadow-indigo-500/5">
                     1. เวลา → ชั่วโมง
                 </button>
-                <button data-target="tab-2" class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                <button data-target="tab-2"
+                    class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                     2. บวกเวลา (ข้อความ)
                 </button>
-                <button data-target="tab-1" class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                <button data-target="tab-1"
+                    class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                     3. หาส่วนต่างเวลา
                 </button>
-                <button data-target="tab-4" class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                <button data-target="tab-4"
+                    class="menu-btn text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                     4. คำนวณน้ำมัน
                 </button>
                 <!-- Dropdown Menu 5 -->
                 <div class="flex flex-col gap-1">
-                    <button type="button" id="menu-5-dropdown-btn" class="text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300 flex justify-between items-center">
+                    <button type="button" id="menu-5-dropdown-btn"
+                        class="text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300 flex justify-between items-center">
                         <span>5. คำนวณ L เป็น %</span>
-                        <svg class="w-4 h-4 transition-transform duration-300" id="menu-5-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <svg class="w-4 h-4 transition-transform duration-300" id="menu-5-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
                     </button>
-                    <div id="menu-5-dropdown-content" class="hidden flex-col gap-1 pl-4 ml-2 border-l-2 border-zinc-800/50 mt-1">
-                        <button data-target="tab-5" class="menu-btn text-left px-4 py-2.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                    <div id="menu-5-dropdown-content"
+                        class="hidden flex-col gap-1 pl-4 ml-2 border-l-2 border-zinc-800/50 mt-1">
+                        <button data-target="tab-5"
+                            class="menu-btn text-left px-4 py-2.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                             หน้าจอหลัก (1)
                         </button>
-                        <button data-target="tab-5-2" class="menu-btn text-left px-4 py-2.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                        <button data-target="tab-5-2"
+                            class="menu-btn text-left px-4 py-2.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
                             หน้าจอเทียบ (2)
                         </button>
                     </div>
@@ -390,10 +465,12 @@
                 <div class="my-3 border-t border-zinc-700/50"></div>
 
                 <!-- Floating Calculator Button -->
-                <button onclick="toggleFloatingCalculator()" class="calc-sidebar-btn w-full text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-indigo-300 hover:text-indigo-200 hover:bg-indigo-500/15 hover:border-indigo-400/50 transition-all duration-300 flex items-center gap-3">
+                <button onclick="toggleFloatingCalculator()"
+                    class="calc-sidebar-btn w-full text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-indigo-300 hover:text-indigo-200 hover:bg-indigo-500/15 hover:border-indigo-400/50 transition-all duration-300 flex items-center gap-3">
                     <span class="text-lg">🧮</span>
                     <span>เครื่องคิดเลข</span>
-                    <span class="ml-auto text-[10px] uppercase tracking-widest text-indigo-200 bg-indigo-500/20 px-2 py-0.5 rounded-md font-bold shadow-sm">popup</span>
+                    <span
+                        class="ml-auto text-[10px] uppercase tracking-widest text-indigo-200 bg-indigo-500/20 px-2 py-0.5 rounded-md font-bold shadow-sm">popup</span>
                 </button>
             </nav>
 
@@ -407,30 +484,49 @@
                 <section class="mb-6 space-y-4">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">เครื่องคำนวณหาส่วนต่างเวลา</h2>
-                        <button id="clear-tab1-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                        <button id="clear-tab1-btn"
+                            class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
                             ล้างข้อมูล
                         </button>
                     </div>
                     <div id="time-entries" class="space-y-3 max-h-[300px] overflow-y-auto pr-2">
                         <!-- Time Entry Row (Template) -->
-                        <div class="time-entry flex flex-col gap-2 bg-zinc-900 p-4 rounded-xl border border-zinc-800 relative hover:border-zinc-700">
+                        <div
+                            class="time-entry flex flex-col gap-2 bg-zinc-900 p-4 rounded-xl border border-zinc-800 relative hover:border-zinc-700">
                             <div class="flex items-center gap-3">
                                 <div class="flex-1">
-                                    <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาเริ่มต้น</label>
-                                    <input type="text" inputmode="numeric" placeholder="00:00" class="start-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner" required>
+                                    <label
+                                        class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาเริ่มต้น</label>
+                                    <input type="text" inputmode="numeric" placeholder="00:00"
+                                        class="start-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner"
+                                        required>
                                 </div>
                                 <div class="flex-1">
-                                    <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาสิ้นสุด</label>
-                                    <input type="text" inputmode="numeric" placeholder="00:00" class="end-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner" required>
+                                    <label
+                                        class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาสิ้นสุด</label>
+                                    <input type="text" inputmode="numeric" placeholder="00:00"
+                                        class="end-time w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono text-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner"
+                                        required>
                                 </div>
                             </div>
                             <div class="flex items-center justify-end gap-2">
-                                <span class="text-xl font-bold text-indigo-400 font-mono tabular-nums row-duration"></span>
+                                <span
+                                    class="text-xl font-bold text-indigo-400 font-mono tabular-nums row-duration"></span>
                                 <div class="tab1-copy-wrapper hidden items-center gap-2 shrink-0">
                                     <div class="w-px h-6 bg-zinc-800"></div>
-                                    <button type="button" class="tab1-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner relative" title="คัดลอกค่า">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                    <button type="button"
+                                        class="tab1-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner relative"
+                                        title="คัดลอกค่า">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                            fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -438,30 +534,41 @@
                     </div>
 
                     <!-- Add Button -->
-                    <button id="add-time-btn" class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99]">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /></svg>
+                    <button id="add-time-btn"
+                        class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99]">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
                         เพิ่มช่วงเวลา
                     </button>
 
                     <!-- Calculate Button -->
-                    <button id="calculate-btn" class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99]">
+                    <button id="calculate-btn"
+                        class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99]">
                         คำนวณเวลาสุทธิ
                     </button>
                 </section>
 
-                <section id="section-3-results" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 hidden opacity-0 transform translate-y-2">
-                    <h2 class="text-xs text-zinc-400 font-medium mb-4 text-center uppercase tracking-wider">ผลลัพธ์การคำนวณ</h2>
+                <section id="section-3-results"
+                    class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 hidden opacity-0 transform translate-y-2">
+                    <h2 class="text-xs text-zinc-400 font-medium mb-4 text-center uppercase tracking-wider">
+                        ผลลัพธ์การคำนวณ</h2>
                     <div class="grid grid-cols-2 gap-4 text-center">
-                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                        <div
+                            class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
                             <p class="text-xs text-zinc-400 mb-1.5">เวลารวมทั้งหมด</p>
                             <p id="result-hm" class="text-xl font-bold text-zinc-100">0 ชม. 0 นาที</p>
                         </div>
-                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
+                        <div
+                            class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800">
                             <p class="text-xs text-zinc-400 mb-1.5">คิดเป็นชั่วโมง (ทศนิยม)</p>
                             <p id="result-decimal" class="text-xl font-bold text-indigo-400 font-mono">0.00</p>
                         </div>
                     </div>
-                    <div id="error-message" class="text-red-400 text-xs text-center mt-4 hidden">กรุณากรอกเวลาให้ครบถ้วนและถูกต้อง</div>
+                    <div id="error-message" class="text-red-400 text-xs text-center mt-4 hidden">
+                        กรุณากรอกเวลาให้ครบถ้วนและถูกต้อง</div>
                 </section>
             </div>
 
@@ -470,40 +577,66 @@
                 <section class="mb-6 space-y-6">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">บวกเวลา (จากข้อความ)</h2>
-                        <button id="clear-tab2-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                        <button id="clear-tab2-btn"
+                            class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
                             ล้างข้อมูล
                         </button>
                     </div>
-                    <p class="text-sm text-zinc-400 mb-2 leading-relaxed">วางข้อความที่มีเวลาอยู่ข้างใน (เช่น เวลาเดินรถ06:36:2) ระบบจะดึงเฉพาะชั่วโมงและนาทีมาบวกกันโดยอัตโนมัติ</p>
+                    <p class="text-sm text-zinc-400 mb-2 leading-relaxed">วางข้อความที่มีเวลาอยู่ข้างใน (เช่น
+                        เวลาเดินรถ06:36:2) ระบบจะดึงเฉพาะชั่วโมงและนาทีมาบวกกันโดยอัตโนมัติ</p>
 
                     <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
-                        <textarea id="raw-time-text" rows="6" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 placeholder-zinc-600 resize-none font-sans text-sm leading-relaxed" placeholder="วางข้อความที่นี่..."></textarea>
+                        <textarea id="raw-time-text" rows="6"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 placeholder-zinc-600 resize-none font-sans text-sm leading-relaxed"
+                            placeholder="วางข้อความที่นี่..."></textarea>
                     </div>
 
-                    <button id="calc-tab2-btn" class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99] transition-all">
+                    <button id="calc-tab2-btn"
+                        class="hidden w-full py-3.5 mt-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-semibold shadow-lg shadow-indigo-500/20 active:scale-[0.99] transition-all">
                         สกัดเวลาและคำนวณผลรวม
                     </button>
                 </section>
 
-                <section id="tab2-results" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 hidden opacity-0 transform translate-y-2">
-                    <h2 class="text-xs text-zinc-400 font-medium mb-4 text-center uppercase tracking-wider">ผลลัพธ์การคำนวณ</h2>
+                <section id="tab2-results"
+                    class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 hidden opacity-0 transform translate-y-2">
+                    <h2 class="text-xs text-zinc-400 font-medium mb-4 text-center uppercase tracking-wider">
+                        ผลลัพธ์การคำนวณ</h2>
                     <div class="mb-4 bg-zinc-950 p-4 rounded-xl border border-zinc-800">
-                        <span class="text-[11px] text-zinc-500 block mb-1.5 uppercase tracking-wider font-semibold">เวลาที่ตรวจพบ:</span>
+                        <span
+                            class="text-[11px] text-zinc-500 block mb-1.5 uppercase tracking-wider font-semibold">เวลาที่ตรวจพบ:</span>
                         <div id="tab2-detected-times" class="font-mono text-zinc-300 text-sm leading-relaxed"></div>
                     </div>
                     <div class="grid grid-cols-2 gap-4 text-center">
-                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all">
+                        <div
+                            class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all">
                             <p class="text-xs text-zinc-400 mb-1.5">เวลารวมทั้งหมด</p>
                             <p id="tab2-result-hm" class="text-xl font-bold text-zinc-100">0 ชม. 0 นาที</p>
                         </div>
-                        <div class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all relative">
+                        <div
+                            class="bg-zinc-800/50 p-5 rounded-xl border border-zinc-700/50 hover:scale-[1.02] hover:bg-zinc-800 transition-all relative">
                             <p class="text-xs text-zinc-400 mb-1.5">คิดเป็นชั่วโมง (ทศนิยม)</p>
                             <div class="flex items-center justify-center gap-2">
                                 <p id="tab2-result-decimal" class="text-xl font-bold text-indigo-400 font-mono">0.00</p>
-                                <button id="copy-tab2-decimal-btn" onclick="copyTab2Decimal()" type="button" class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner relative" title="คัดลอกค่า">
-                                    <svg id="copy-tab2-decimal-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path></svg>
-                                    <svg id="copy-tab2-decimal-check" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16" class="hidden text-green-400"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                <button id="copy-tab2-decimal-btn" onclick="copyTab2Decimal()" type="button"
+                                    class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner relative"
+                                    title="คัดลอกค่า">
+                                    <svg id="copy-tab2-decimal-icon" xmlns="http://www.w3.org/2000/svg" width="12"
+                                        height="12" fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z">
+                                        </path>
+                                    </svg>
+                                    <svg id="copy-tab2-decimal-check" xmlns="http://www.w3.org/2000/svg" width="12"
+                                        height="12" fill="currentColor" viewBox="0 0 16 16"
+                                        class="hidden text-green-400">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -519,18 +652,31 @@
                         <div class="flex items-center gap-2">
                             <!-- Mode toggle -->
                             <div class="flex bg-zinc-950 border border-zinc-800 rounded-lg p-0.5">
-                                <button id="tab3-mode-1col" class="tab3-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all bg-indigo-600 text-white shadow-sm">1 คอลัมน์</button>
-                                <button id="tab3-mode-2col" class="tab3-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all text-zinc-400 hover:text-zinc-200">+ กม./ลิตร</button>
+                                <button id="tab3-mode-1col"
+                                    class="tab3-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all bg-indigo-600 text-white shadow-sm">1
+                                    คอลัมน์</button>
+                                <button id="tab3-mode-2col"
+                                    class="tab3-mode-btn px-3 py-1 rounded-md text-xs font-semibold transition-all text-zinc-400 hover:text-zinc-200">+
+                                    กม./ลิตร</button>
                             </div>
-                            <button id="clear-tab3-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            <button id="clear-tab3-btn"
+                                class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path
+                                        d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                </svg>
                                 ล้างข้อมูล
                             </button>
                         </div>
                     </div>
                     <!-- hint changes by mode -->
-                    <p id="tab3-hint-1col" class="text-sm text-zinc-400 leading-relaxed">ใส่เวลา (หรือวางจาก Excel หลายๆ บรรทัด) ระบบจะแปลงเป็นชั่วโมงทศนิยมให้อัตโนมัติ</p>
-                    <p id="tab3-hint-2col" class="text-sm text-zinc-400 leading-relaxed hidden">วางข้อมูล 2 คอลัมน์จาก Excel (เวลา <kbd class="bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-300 text-xs font-mono">Tab</kbd> กม./ลิตร) ระบบจะแปลงเวลาและเก็บค่า กม./ลิตร ไว้ให้</p>
+                    <p id="tab3-hint-1col" class="text-sm text-zinc-400 leading-relaxed">ใส่เวลา (หรือวางจาก Excel หลายๆ
+                        บรรทัด) ระบบจะแปลงเป็นชั่วโมงทศนิยมให้อัตโนมัติ</p>
+                    <p id="tab3-hint-2col" class="text-sm text-zinc-400 leading-relaxed hidden">วางข้อมูล 2 คอลัมน์จาก
+                        Excel (เวลา <kbd
+                            class="bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-300 text-xs font-mono">Tab</kbd>
+                        กม./ลิตร) ระบบจะแปลงเวลาและเก็บค่า กม./ลิตร ไว้ให้</p>
 
                     <!-- Wrapper to prevent squishing when dual column is active on narrow width -->
                     <div class="overflow-x-auto -mx-2 px-2 scrollbar-thin">
@@ -538,30 +684,52 @@
                             <!-- column headers (shown in 2-col mode) -->
                             <div id="tab3-col-headers" class="hidden flex items-center gap-3 px-2">
                                 <div class="w-8 shrink-0"></div>
-                                <div class="flex-1 text-[10px] uppercase tracking-widest font-bold text-zinc-500">⏱ เวลา</div>
-                                <div class="w-20 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-right">ชม.ทศนิยม</div>
-                                <div class="tab3-kml-hdr w-32 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 pl-3">⛽ กม./ลิตร</div>
-                                <div class="w-10 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-center">คัดลอก</div>
+                                <div class="flex-1 text-[10px] uppercase tracking-widest font-bold text-zinc-500">⏱ เวลา
+                                </div>
+                                <div
+                                    class="w-20 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-right">
+                                    ชม.ทศนิยม</div>
+                                <div
+                                    class="tab3-kml-hdr w-32 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 pl-3">
+                                    ⛽ กม./ลิตร</div>
+                                <div
+                                    class="w-10 shrink-0 text-[10px] uppercase tracking-widest font-bold text-zinc-500 text-center">
+                                    คัดลอก</div>
                             </div>
 
                             <div id="tab3-entries" class="space-y-3 max-h-[380px] overflow-y-auto pr-1">
                                 <!-- Initial Row -->
-                                <div class="tab3-entry flex items-center gap-3 bg-zinc-900 p-3.5 rounded-xl border border-zinc-800 relative hover:border-zinc-700 transition-all">
-                                    <button type="button" class="tab3-remove-btn w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-red-400 hidden shrink-0 rounded-lg hover:bg-zinc-800 transition-colors">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" /></svg>
+                                <div
+                                    class="tab3-entry flex items-center gap-3 bg-zinc-900 p-3.5 rounded-xl border border-zinc-800 relative hover:border-zinc-700 transition-all">
+                                    <button type="button"
+                                        class="tab3-remove-btn w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-red-400 hidden shrink-0 rounded-lg hover:bg-zinc-800 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                            fill="currentColor" viewBox="0 0 16 16">
+                                            <path
+                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                                        </svg>
                                     </button>
-                                    <input type="text" placeholder="15:10 หรือ 53 นาที" class="tab3-time flex-1 min-w-0 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-zinc-100 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
-                                    <span class="tab3-row-result w-20 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
+                                    <input type="text" placeholder="15:10 หรือ 53 นาที"
+                                        class="tab3-time flex-1 min-w-0 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-zinc-100 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors">
+                                    <span
+                                        class="tab3-row-result w-20 text-right text-xl font-bold text-indigo-400 font-mono shrink-0 tabular-nums">0.00</span>
                                     <!-- kml column (hidden in 1-col mode) -->
                                     <div class="tab3-kml-col hidden items-center gap-2 shrink-0">
                                         <div class="w-px h-6 bg-zinc-800"></div>
-                                        <input type="text" placeholder="กม./ล." class="tab3-kml w-32 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-emerald-300 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors">
+                                        <input type="text" placeholder="กม./ล."
+                                            class="tab3-kml w-32 bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2.5 text-emerald-300 text-sm font-mono placeholder-zinc-700 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-colors">
                                     </div>
                                     <!-- row copy button (always at the very end) -->
                                     <div class="flex items-center gap-2 shrink-0">
                                         <div class="w-px h-6 bg-zinc-800"></div>
-                                        <button type="button" class="tab3-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner" title="คัดลอกแถวนี้">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/></svg>
+                                        <button type="button"
+                                            class="tab3-copy-row-btn w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner"
+                                            title="คัดลอกแถวนี้">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                                                fill="currentColor" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd"
+                                                    d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                                            </svg>
                                         </button>
                                     </div>
                                 </div>
@@ -569,8 +737,13 @@
                         </div>
                     </div>
 
-                    <button id="add-tab3-btn" class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99] transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" /></svg>
+                    <button id="add-tab3-btn"
+                        class="w-full py-3.5 rounded-xl border border-dashed border-zinc-700 text-zinc-400 hover:text-indigo-400 hover:border-indigo-500/50 hover:bg-indigo-500/10 flex items-center justify-center gap-2 text-sm font-medium active:scale-[0.99] transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
                         เพิ่มรายการ
                     </button>
 
@@ -579,16 +752,24 @@
                             <h2 class="text-xs text-zinc-400 font-semibold uppercase tracking-wider">คัดลอกลง Excel</h2>
                             <div class="flex items-center gap-2">
                                 <label class="text-[11px] text-zinc-500 uppercase font-semibold">รูปแบบ:</label>
-                                <select id="tab3-export-format" class="bg-zinc-950 border border-zinc-800 rounded-md px-2 py-1 text-zinc-300 text-xs focus:outline-none focus:border-indigo-500 cursor-pointer">
+                                <select id="tab3-export-format"
+                                    class="bg-zinc-950 border border-zinc-800 rounded-md px-2 py-1 text-zinc-300 text-xs focus:outline-none focus:border-indigo-500 cursor-pointer">
                                     <option value="vertical">แนวตั้ง</option>
                                     <option value="horizontal">แนวนอน</option>
                                 </select>
                             </div>
                         </div>
                         <div class="relative">
-                            <textarea id="tab3-export-text" rows="3" readonly class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-300 font-mono text-sm focus:outline-none focus:border-indigo-500 resize-none"></textarea>
-                            <button id="tab3-copy-btn" class="absolute top-2 right-2 bg-zinc-800 hover:bg-zinc-700 p-2 rounded-md text-zinc-300 hover:text-white transition-colors active:scale-95" title="คัดลอก">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" /></svg>
+                            <textarea id="tab3-export-text" rows="3" readonly
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-3 text-zinc-300 font-mono text-sm focus:outline-none focus:border-indigo-500 resize-none"></textarea>
+                            <button id="tab3-copy-btn"
+                                class="absolute top-2 right-2 bg-zinc-800 hover:bg-zinc-700 p-2 rounded-md text-zinc-300 hover:text-white transition-colors active:scale-95"
+                                title="คัดลอก">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor"
+                                    viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z" />
+                                </svg>
                             </button>
                         </div>
                     </section>
@@ -600,8 +781,13 @@
                 <section class="space-y-4">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">คำนวณน้ำมันคงเหลือ</h2>
-                        <button id="clear-tab4-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                        <button id="clear-tab4-btn"
+                            class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
                             ล้างข้อมูล
                         </button>
                     </div>
@@ -609,40 +795,59 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">L/H (ลิตร/ชั่วโมง)</label>
-                            <input id="tab4-lph" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                            <label
+                                class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">L/H
+                                (ลิตร/ชั่วโมง)</label>
+                            <input id="tab4-lph" type="number" inputmode="decimal" placeholder="0.00" step="0.01"
+                                min="0"
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
                         </div>
                         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาทำงาน (ชั่วโมง)</label>
-                            <input id="tab4-hours" type="number" inputmode="decimal" placeholder="0.00" step="0.01" min="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                            <label
+                                class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เวลาทำงาน
+                                (ชั่วโมง)</label>
+                            <input id="tab4-hours" type="number" inputmode="decimal" placeholder="0.00" step="0.01"
+                                min="0"
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
                         </div>
                         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">% น้ำมันเดิม</label>
-                            <input id="tab4-fuel-pct" type="number" inputmode="decimal" placeholder="0" step="0.1" min="0" max="100" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                            <label
+                                class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">%
+                                น้ำมันเดิม</label>
+                            <input id="tab4-fuel-pct" type="number" inputmode="decimal" placeholder="0" step="0.1"
+                                min="0" max="100"
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
                         </div>
                         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถัง (ลิตร)</label>
-                            <select id="tab4-tank" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans">
+                            <label
+                                class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถัง
+                                (ลิตร)</label>
+                            <select id="tab4-tank"
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans">
                                 <option value="240">240 L</option>
                                 <option value="340">340 L</option>
                             </select>
                         </div>
                     </div>
 
-                    <section id="tab4-result" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 hidden opacity-0 transform translate-y-2">
+                    <section id="tab4-result"
+                        class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 hidden opacity-0 transform translate-y-2">
                         <div class="grid grid-cols-3 gap-4 text-center">
                             <div class="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 hover:scale-[1.02]">
-                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ยอดลิตรที่ใช้</p>
+                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">
+                                    ยอดลิตรที่ใช้</p>
                                 <p id="tab4-liters-used" class="text-xl font-bold text-zinc-100 font-mono">0.00</p>
                                 <p class="text-[10px] text-zinc-500 mt-1">ลิตร</p>
                             </div>
                             <div class="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 hover:scale-[1.02]">
-                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">% ที่ใช้ไป</p>
+                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">%
+                                    ที่ใช้ไป</p>
                                 <p id="tab4-pct-used" class="text-xl font-bold text-yellow-400 font-mono">0.00</p>
                                 <p class="text-[10px] text-zinc-500 mt-1">%</p>
                             </div>
                             <div class="bg-zinc-800/50 p-4 rounded-xl border border-zinc-700/50 hover:scale-[1.02]">
-                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">% ควรเหลือ</p>
+                                <p class="text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">%
+                                    ควรเหลือ</p>
                                 <p id="tab4-pct-remain" class="text-xl font-bold text-emerald-400 font-mono">0.00</p>
                                 <p class="text-[10px] text-zinc-500 mt-1">%</p>
                             </div>
@@ -656,8 +861,13 @@
                 <section class="space-y-4">
                     <div class="flex justify-between items-center mb-2">
                         <h2 class="text-lg font-semibold text-zinc-100">คำนวณค่าน้ำมัน L เป็น %</h2>
-                        <button id="clear-tab5-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                        <button id="clear-tab5-btn"
+                            class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                                viewBox="0 0 16 16">
+                                <path
+                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                            </svg>
                             ล้างข้อมูล
                         </button>
                     </div>
@@ -665,31 +875,56 @@
 
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถังน้ำมัน (ลิตร)</label>
-                            <select id="tab5-tank-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans mb-2">
+                            <label
+                                class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถังน้ำมัน
+                                (ลิตร)</label>
+                            <select id="tab5-tank-select"
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans mb-2">
+                                <option value="620">620 L</option>
                                 <option value="400">400 L</option>
                                 <option value="340">340 L</option>
                                 <option value="420">420 L</option>
                                 <option value="240">240 L</option>
                                 <option value="custom">กำหนดเอง</option>
                             </select>
-                            <input id="tab5-tank-custom" type="number" inputmode="decimal" placeholder="ระบุขนาดถัง" min="1" class="hidden w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                            <input id="tab5-tank-custom" type="number" inputmode="decimal" placeholder="ระบุขนาดถัง"
+                                min="1"
+                                class="hidden w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
                         </div>
                         <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                            <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ปริมาณน้ำมัน (ลิตร)</label>
-                            <input id="tab5-liters" type="number" inputmode="decimal" placeholder="เช่น 120" min="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                            <label
+                                class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ปริมาณน้ำมัน
+                                (ลิตร)</label>
+                            <input id="tab5-liters" type="number" inputmode="decimal" placeholder="เช่น 120" min="0"
+                                class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
                         </div>
                     </div>
 
-                    <section id="tab5-result" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 opacity-100 transition-opacity">
+                    <section id="tab5-result"
+                        class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 opacity-100 transition-opacity">
                         <div class="flex justify-center text-center">
-                            <div class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700/50 hover:scale-[1.02] w-full max-w-sm relative">
-                                <p class="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">คิดเป็นเปอร์เซ็นต์</p>
+                            <div
+                                class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700/50 hover:scale-[1.02] w-full max-w-sm relative">
+                                <p class="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">
+                                    คิดเป็นเปอร์เซ็นต์</p>
                                 <div class="flex items-center justify-center gap-3">
-                                    <p id="tab5-pct-result" class="text-3xl font-bold text-indigo-400 font-mono">0.00%</p>
-                                    <button id="copy-tab5-btn" type="button" class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner" title="คัดลอกค่า">
-                                        <svg id="copy-tab5-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path></svg>
-                                        <svg id="copy-tab5-check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" class="hidden text-white"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                    <p id="tab5-pct-result" class="text-3xl font-bold text-indigo-400 font-mono">0.00%
+                                    </p>
+                                    <button id="copy-tab5-btn" type="button"
+                                        class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner"
+                                        title="คัดลอกค่า">
+                                        <svg id="copy-tab5-icon" xmlns="http://www.w3.org/2000/svg" width="14"
+                                            height="14" fill="currentColor" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z">
+                                            </path>
+                                        </svg>
+                                        <svg id="copy-tab5-check" xmlns="http://www.w3.org/2000/svg" width="14"
+                                            height="14" fill="currentColor" viewBox="0 0 16 16"
+                                            class="hidden text-white">
+                                            <path
+                                                d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -705,40 +940,68 @@
             <section class="space-y-4">
                 <div class="flex justify-between items-center mb-2">
                     <h2 class="text-lg font-semibold text-zinc-100">คำนวณค่าน้ำมัน L เป็น % (หน้าต่าง 2)</h2>
-                    <button id="clear-tab5-2-btn" class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                    <button id="clear-tab5-2-btn"
+                        class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
                         ล้างข้อมูล
                     </button>
                 </div>
-                <p class="text-sm text-zinc-400 mb-4">แปลงปริมาณน้ำมัน (ลิตร) เป็นเปอร์เซ็นต์ตามขนาดถัง (ใช้เปิดเทียบกับหน้าแรก)</p>
+                <p class="text-sm text-zinc-400 mb-4">แปลงปริมาณน้ำมัน (ลิตร) เป็นเปอร์เซ็นต์ตามขนาดถัง
+                    (ใช้เปิดเทียบกับหน้าแรก)</p>
 
                 <div class="grid grid-cols-2 gap-4">
                     <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                        <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถังน้ำมัน (ลิตร)</label>
-                        <select id="tab5-2-tank-select" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans mb-2">
+                        <label
+                            class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถังน้ำมัน
+                            (ลิตร)</label>
+                        <select id="tab5-2-tank-select"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans mb-2">
                             <option value="400">400 L</option>
                             <option value="340">340 L</option>
                             <option value="420">420 L</option>
                             <option value="240">240 L</option>
                             <option value="custom">กำหนดเอง</option>
                         </select>
-                        <input id="tab5-2-tank-custom" type="number" inputmode="decimal" placeholder="ระบุขนาดถัง" min="1" class="hidden w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        <input id="tab5-2-tank-custom" type="number" inputmode="decimal" placeholder="ระบุขนาดถัง"
+                            min="1"
+                            class="hidden w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
                     </div>
                     <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
-                        <label class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ปริมาณน้ำมัน (ลิตร)</label>
-                        <input id="tab5-2-liters" type="number" inputmode="decimal" placeholder="เช่น 120" min="0" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                        <label
+                            class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ปริมาณน้ำมัน
+                            (ลิตร)</label>
+                        <input id="tab5-2-liters" type="number" inputmode="decimal" placeholder="เช่น 120" min="0"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
                     </div>
                 </div>
 
-                <section id="tab5-2-result" class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 opacity-100 transition-opacity">
+                <section id="tab5-2-result"
+                    class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 opacity-100 transition-opacity">
                     <div class="flex justify-center text-center">
-                        <div class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700/50 hover:scale-[1.02] w-full max-w-sm relative">
-                            <p class="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">คิดเป็นเปอร์เซ็นต์</p>
+                        <div
+                            class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700/50 hover:scale-[1.02] w-full max-w-sm relative">
+                            <p class="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">
+                                คิดเป็นเปอร์เซ็นต์</p>
                             <div class="flex items-center justify-center gap-3">
                                 <p id="tab5-2-pct-result" class="text-3xl font-bold text-indigo-400 font-mono">0.00%</p>
-                                <button id="copy-tab5-2-btn" type="button" class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner" title="คัดลอกค่า">
-                                    <svg id="copy-tab5-2-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"></path></svg>
-                                    <svg id="copy-tab5-2-check" xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16" class="hidden text-white"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                <button id="copy-tab5-2-btn" type="button"
+                                    class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner"
+                                    title="คัดลอกค่า">
+                                    <svg id="copy-tab5-2-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z">
+                                        </path>
+                                    </svg>
+                                    <svg id="copy-tab5-2-check" xmlns="http://www.w3.org/2000/svg" width="14"
+                                        height="14" fill="currentColor" viewBox="0 0 16 16" class="hidden text-white">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -747,7 +1010,7 @@
             </section>
         </div>
 
-    </div>
+        </div>
 
     </main>
 
