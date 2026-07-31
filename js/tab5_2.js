@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tankCustom = document.getElementById('tab5-2-tank-custom');
     const litersInput = document.getElementById('tab5-2-liters');
     const resultPct = document.getElementById('tab5-2-pct-result');
-    const clearBtn = document.getElementById('clear-tab5-2-2-btn');
+    const clearBtn = document.getElementById('clear-tab5-2-btn');
 
     const calculate = () => {
         let maxTank = 0;
@@ -41,9 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Copy result button
-    const copyBtn = document.getElementById('copy-tab5-2-2-btn');
-    const copyIcon = document.getElementById('copy-tab5-2-2-icon');
-    const copyCheck = document.getElementById('copy-tab5-2-2-check');
+    const copyBtn = document.getElementById('copy-tab5-2-btn');
+    const copyIcon = document.getElementById('copy-tab5-2-icon');
+    const copyCheck = document.getElementById('copy-tab5-2-check');
 
     if (copyBtn) {
         copyBtn.addEventListener('click', () => {
