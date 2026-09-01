@@ -460,6 +460,30 @@
                     </div>
                 </div>
 
+                <!-- Dropdown Menu 6 -->
+                <div class="flex flex-col gap-1">
+                    <button type="button" id="menu-6-dropdown-btn"
+                        class="text-left px-5 py-3.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300 flex justify-between items-center">
+                        <span>6. คำนวณ % เป็น L</span>
+                        <svg class="w-4 h-4 transition-transform duration-300" id="menu-6-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                            </path>
+                        </svg>
+                    </button>
+                    <div id="menu-6-dropdown-content"
+                        class="hidden flex-col gap-1 pl-4 ml-2 border-l-2 border-zinc-800/50 mt-1">
+                        <button data-target="tab-6-1"
+                            class="menu-btn text-left px-4 py-2.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                            หน้าจอหลัก (1)
+                        </button>
+                        <button data-target="tab-6-2"
+                            class="menu-btn text-left px-4 py-2.5 rounded-xl border-l-4 border-transparent text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/40 transition-all duration-300">
+                            หน้าจอเทียบ (2)
+                        </button>
+                    </div>
+                </div>
+
                 <!-- Divider -->
                 <div class="my-3 border-t border-zinc-700/50"></div>
 
@@ -1010,6 +1034,158 @@
             </section>
         </div>
 
+        <!-- TAB 6-1: % TO L CALCULATOR -->
+        <div id="tab-6-1" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 lg:p-8 border border-zinc-800">
+            <section class="space-y-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-semibold text-zinc-100">คำนวณค่าน้ำมัน % เป็น L</h2>
+                    <button id="clear-tab6-1-btn"
+                        class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                        ล้างข้อมูล
+                    </button>
+                </div>
+                <p class="text-sm text-zinc-400 mb-4">แปลงเปอร์เซ็นต์น้ำมัน เป็นปริมาณลิตรตามขนาดถัง</p>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                        <label
+                            class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถังน้ำมัน
+                            (ลิตร)</label>
+                        <select id="tab6-1-tank-select"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans mb-2">
+                            <option value="620">620 L</option>
+                            <option value="400">400 L</option>
+                            <option value="340">340 L</option>
+                            <option value="420">420 L</option>
+                            <option value="240">240 L</option>
+                            <option value="custom">กำหนดเอง</option>
+                        </select>
+                        <input id="tab6-1-tank-custom" type="number" inputmode="decimal" placeholder="ระบุขนาดถัง"
+                            min="1"
+                            class="hidden w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                    </div>
+                    <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                        <label
+                            class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เปอร์เซ็นต์น้ำมัน
+                            (%)</label>
+                        <input id="tab6-1-pct" type="number" inputmode="decimal" placeholder="เช่น 75" min="0" max="100"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                    </div>
+                </div>
+
+                <section id="tab6-1-result"
+                    class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 opacity-100 transition-opacity">
+                    <div class="flex justify-center text-center">
+                        <div
+                            class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700/50 hover:scale-[1.02] w-full max-w-sm relative">
+                            <p class="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">
+                                คิดเป็นลิตร</p>
+                            <div class="flex items-center justify-center gap-3">
+                                <p id="tab6-1-liter-result" class="text-3xl font-bold text-emerald-400 font-mono">0.00 L
+                                </p>
+                                <button id="copy-tab6-1-btn" type="button"
+                                    class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner"
+                                    title="คัดลอกค่า">
+                                    <svg id="copy-tab6-1-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z">
+                                        </path>
+                                    </svg>
+                                    <svg id="copy-tab6-1-check" xmlns="http://www.w3.org/2000/svg" width="14"
+                                        height="14" fill="currentColor" viewBox="0 0 16 16" class="hidden text-white">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+
+        <!-- TAB 6-2: % TO L CALCULATOR -->
+        <div id="tab-6-2" class="tab-content hidden bg-zinc-950/50 rounded-2xl p-6 lg:p-8 border border-zinc-800">
+            <section class="space-y-4">
+                <div class="flex justify-between items-center mb-2">
+                    <h2 class="text-lg font-semibold text-zinc-100">คำนวณค่าน้ำมัน % เป็น L (หน้าต่าง 2)</h2>
+                    <button id="clear-tab6-2-btn"
+                        class="text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-red-400/10 hover:bg-red-400/20 px-3 py-1.5 rounded-lg active:scale-95 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                        </svg>
+                        ล้างข้อมูล
+                    </button>
+                </div>
+                <p class="text-sm text-zinc-400 mb-4">แปลงเปอร์เซ็นต์น้ำมัน เป็นปริมาณลิตรตามขนาดถัง (ใช้เปิดเทียบกับหน้าแรก)</p>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                        <label
+                            class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">ขนาดถังน้ำมัน
+                            (ลิตร)</label>
+                        <select id="tab6-2-tank-select"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner cursor-pointer font-sans mb-2">
+                            <option value="620">620 L</option>
+                            <option value="400">400 L</option>
+                            <option value="340">340 L</option>
+                            <option value="420">420 L</option>
+                            <option value="240">240 L</option>
+                            <option value="custom">กำหนดเอง</option>
+                        </select>
+                        <input id="tab6-2-tank-custom" type="number" inputmode="decimal" placeholder="ระบุขนาดถัง"
+                            min="1"
+                            class="hidden w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                    </div>
+                    <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800 hover:border-zinc-700">
+                        <label
+                            class="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5 font-semibold">เปอร์เซ็นต์น้ำมัน
+                            (%)</label>
+                        <input id="tab6-2-pct" type="number" inputmode="decimal" placeholder="เช่น 75" min="0" max="100"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-zinc-100 font-mono focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 shadow-inner">
+                    </div>
+                </div>
+
+                <section id="tab6-2-result"
+                    class="bg-zinc-900 rounded-xl p-6 border border-zinc-800 mt-6 opacity-100 transition-opacity">
+                    <div class="flex justify-center text-center">
+                        <div
+                            class="bg-zinc-800/50 p-6 rounded-xl border border-zinc-700/50 hover:scale-[1.02] w-full max-w-sm relative">
+                            <p class="text-xs uppercase tracking-wider text-zinc-400 mb-2 font-semibold">
+                                คิดเป็นลิตร</p>
+                            <div class="flex items-center justify-center gap-3">
+                                <p id="tab6-2-liter-result" class="text-3xl font-bold text-emerald-400 font-mono">0.00 L
+                                </p>
+                                <button id="copy-tab6-2-btn" type="button"
+                                    class="w-8 h-8 flex items-center justify-center text-zinc-400 hover:text-white bg-zinc-950/40 hover:bg-indigo-600 border border-zinc-800 rounded-lg transition-all active:scale-95 shadow-inner"
+                                    title="คัดลอกค่า">
+                                    <svg id="copy-tab6-2-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        fill="currentColor" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z">
+                                        </path>
+                                    </svg>
+                                    <svg id="copy-tab6-2-check" xmlns="http://www.w3.org/2000/svg" width="14"
+                                        height="14" fill="currentColor" viewBox="0 0 16 16" class="hidden text-white">
+                                        <path
+                                            d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+
         </div>
 
     </main>
@@ -1021,6 +1197,8 @@
     <script src="js/tab4.js"></script>
     <script src="js/tab5.js"></script>
     <script src="js/tab5_2.js"></script>
+    <script src="js/tab6_1.js"></script>
+    <script src="js/tab6_2.js"></script>
     <script src="js/calculator.js"></script>
 </body>
 
